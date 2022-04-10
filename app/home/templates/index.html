@@ -35,127 +35,24 @@
       <div class="col-12">
         <div class="card card-chart">
           <div class="card-header">
-            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Scoring</h3>
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>List invités</h3>
           </div>
           <div class="card-body">
-              <div class="gauge">
-                  <h3 style="text-align:center;">Score environnemental</h4>
-                  <canvas id="env" class="gauge_canvas"></canvas>
-                  <div id="preview-textfield"><p id='score_env'></p></div>
-              </div>
-              <div class="gauge">
-                <h3 style="text-align:center;">Score social</h4>
-                <canvas id="soc" class="gauge_canvas"></canvas>
-                <div id="preview-textfield"><p id='score_soc'></p></div>
-              </div>
-              <div class="gauge">
-                <h3 style="text-align:center;">Score de gouvernance</h4>
-                <canvas id="gov" class="gauge_canvas"></canvas>
-                <div id="preview-textfield"><p id='score_gov'></p></div>
-              </div>
-              <p> La zone vert intermédiaire sur chaque jauge représente le score moyen des entreprises viticoles de votre région +/- 10%. <br></p>
+              <p> Liste des invités <br></p>
+              {% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+            {% endfor %}
           </div>  
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card card-chart">
-          <div class="card-header">
-            <h3 class="card-title"><i class="tim-icons icon-money-coins text-primary"></i>Données financières</h3>
-          </div>
-          <div class="card-body">
-            <div class="chart-area" id='ebitda'> </div>
-            <div class="chart-area" id='endet'> </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card card-chart">
-          <div class="card-header">
-            <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i>Points de vigilance relevés par l'audit</h3>
-          </div>
-          <div class="card-body">
-            <h4><i class="tim-icons icon-world2"></i>Facteurs de risques environnementaux :</h4>
-            <ul>
-              {% for critical in critical_alert[0] %}
-              <li>{{critical}}</li>
-
-              {% endfor %}
-            </ul>
-            <h4><i class="icon icon-heart-2"></i>   Facteurs de risques sociaux :</h4>
-            <ul>
-              {% for critical in critical_alert[1] %}
-              <li>{{critical}}</li>
-
-              {% endfor %}
-            </ul>
-            <h4><i class="icon icon-multiple-11"></i>   Facteurs de risques de gouvernance :</h4>
-            <ul>
-              {% for critical in critical_alert[2] %}
-              <li>{{critical}}</li>
-
-              {% endfor %}
-            </ul>
-            
-          </div>
-        </div>
-      </div>
-    </div>
     
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-  <script>
-    var graphs = {{ebitda | safe}};
-    Plotly.newPlot('ebitda',graphs.data,graphs.layout, config);
-    
-    var endet = {{endet | safe}};
-    Plotly.newPlot('endet',endet.data,endet.layout, config);
-  </script>
-
-  <script>
-    var i;
-    var list_values = {{ scoring | tojson}};
-    var list_indic = ['env', 'soc', 'gov'];
-
-    for (i=0; i < list_values.length; i++){
-      var opts = {
-          lines: 12,
-          angle: 0.0,
-          radiusScale: 0.7,
-          lineWidth: 0.3,
-          pointer: {
-            length: 0.6,
-            strokeWidth: 0.035,
-            color: '#000'
-          },
-          staticLabels: {
-            font: "15px sans-serif",  // Specifies font
-            labels: list_values[i][1],  // Print labels at these values
-            color: "#000",  // Optional: Label text color
-          },
-          staticZones: [
-           {strokeStyle: "#74c476", min: list_values[i][1][0], max: list_values[i][1][1]}, // Clair
-           {strokeStyle: "#31a354", min: list_values[i][1][1], max: list_values[i][1][2]}, // Un peu foncé  
-           {strokeStyle: "#006d2c", min: list_values[i][1][2], max: list_values[i][1][3]}, // Foncé
-          ],
-        };
-
-      
-
-      var target = document.getElementById(list_indic[i]); // your canvas element
-      console.log(list_indic[i]);
-      var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-      gauge.maxValue = list_values[i][1][3]; // set max gauge value
-      gauge.setMinValue(list_values[i][1][0]);  // set min value
-      gauge.set(list_values[i][0]); // set actual value
-
-      document.getElementById(`score_${list_indic[i]}`).innerHTML = list_values[i][0];
-    };
-  </script>
 
 {% endblock javascripts %}

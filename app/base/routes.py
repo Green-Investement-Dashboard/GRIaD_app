@@ -80,6 +80,7 @@ def login():
 
     #render = run.index()
     #return render
+    return redirect(f"/modify2")
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
@@ -161,12 +162,6 @@ def register():
 def modify():
     form = EditAccountForm(request.form)
     #create_account_form = CreateAccountForm(request.form)
-
-    sql2 =f"select * from invite"
-
-    result2 = db.engine.execute(sql2)
-    rows2 = [row for row in result2]
-    print(rows2)
 
     if request.method == 'POST':
         if form.validate_on_submit():

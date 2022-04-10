@@ -111,18 +111,21 @@ def finance():
 
 	
 
-@app.route('/index')
+@app.route('/ind')
 def index():
 	"""Cette fonction génère la page index avec ses représentations graphiques
 
 	:return: renderer de la page avec ses variables associées
     """
-	scoring = index_renderer.Scoring().main()
-	critical_alert = index_renderer.CriticalAlert().main()
+	sql2 =f"select * from invite"
+	result2 = db.engine.execute(sql2)
+	rows2 = [row for row in result2]
+	print(rows2)
+	df = pandas.DataFrame(data=rows2, columns=['Index', 'Email', 'Nom', 'Prenom', 'Plus 1?', 'email +', 'Nom +1', 'Email +1'])
+	df = df[['Email', 'Nom', 'Prenom', 'Plus 1?', 'email +', 'Nom +1', 'Email +1']]
+	print(df)
 
-	list_graph = ggen.FinancialChart('plot_bar', 'F1', 'F2').main()
-
-	return render_template('index.html', ebitda=list_graph[0], endet=list_graph[1], scoring=scoring, critical_alert = critical_alert)
+	return render_template('index.html', tables=[df.to_html(classes=['data', 'table'], index=False)], titles=df.columns.values)
 
 @app.route('/questionnaire', methods=['GET', 'POST'])
 def set_up_q():
