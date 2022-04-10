@@ -37,7 +37,7 @@ from app.home.content_gen import graph_generation as ggen
 #from app.home.content_gen import questionaire
 
 # WARNING: Don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # The configuration
 get_config_mode = 'Debug' if DEBUG else 'Production'
@@ -139,11 +139,6 @@ def set_up_q():
 		return render_template('questionaire.html',  end=True, message= 'Merci {}, données enregistrées'.format(form.name_exploit.data), table = result)	
 
 	return render_template('questionaire.html',  end=False, form=form)
-
-@app.route('/modify')
-def modify():
-
-	return render_template('page-user.html')
 
 if __name__ == "__main__":
 	app.run()

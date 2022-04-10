@@ -59,7 +59,6 @@ def login():
 
             #render = run.index()
             #return render
-            print('here')
             return redirect(f"/modify2")
                 
         else:
@@ -163,6 +162,12 @@ def modify():
     form = EditAccountForm(request.form)
     #create_account_form = CreateAccountForm(request.form)
 
+    sql2 =f"select * from invite"
+
+    result2 = db.engine.execute(sql2)
+    rows2 = [row for row in result2]
+    print(rows2)
+
     if request.method == 'POST':
         if form.validate_on_submit():
             email = form.email.data
@@ -183,8 +188,7 @@ def modify():
     else:
         sql =f"select * from invite where id='{current_user.id}'"
         print(sql)
-        user = User.query.filter_by(id=current_user.id).first()
-        print(user)
+
         result = db.engine.execute(sql)
         rows = [row for row in result]
         if len(rows)!=0:

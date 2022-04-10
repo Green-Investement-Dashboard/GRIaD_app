@@ -19,7 +19,7 @@ class CreateAccountForm(FlaskForm):
     prenom = TextField('Prenom')
     nom = TextField('Nom')
     plus1 = RadioField(choices=[("Non",'Non'),("Oui", 'Oui')])
-    email_plus1    = TextField('Email'        , id='email_create'    , validators=[DataRequired(), Email()])
+    email_plus1    = TextField('Email'        , id='email_create'    , validators=[Email()])
     prenom_plus1 = TextField('Prenom plus 1')
     nom_plus1 = TextField('Nom plus 1')
 
