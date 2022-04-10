@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>app.home.content_gen.questionaire &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="../../../../_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Code du module</a> &raquo;</li>
+        
+          <li><a href="../../../app.html">app</a> &raquo;</li>
+        
+      <li>app.home.content_gen.questionaire</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de app.home.content_gen.questionaire</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- encoding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">© GRID Team, 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">flask_wtf</span> <span class="kn">import</span> <span class="n">FlaskForm</span><span class="p">,</span> <span class="n">RecaptchaField</span>
+<span class="kn">import</span> <span class="nn">wtforms</span>
+<span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">InputRequired</span><span class="p">,</span> <span class="n">Email</span><span class="p">,</span> <span class="n">DataRequired</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+
+<div class="viewcode-block" id="QuestionairesAgri"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.questionaire.QuestionairesAgri">[docs]</a><span class="k">class</span> <span class="nc">QuestionairesAgri</span><span class="p">(</span><span class="n">FlaskForm</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;Cette classe génère le questionaire Flask nécessaire au rendu HTML </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+	<span class="n">name_exploit</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Nom exploitation&#39;</span><span class="p">)</span>
+	<span class="n">address</span>   <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Address&#39;</span><span class="p">)</span>
+	<span class="n">age</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
+	<span class="n">sau</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;sau&#39;</span><span class="p">)</span>
+	<span class="n">etp</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;etp&#39;</span><span class="p">)</span>
+	<span class="n">haie</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectField</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Presence haies&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;y1&#39;</span><span class="p">,</span> <span class="s1">&#39;oui sur toutes les parcelles&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span> <span class="s1">&#39;oui sur une partie des parcelles&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;non&#39;</span><span class="p">)])</span>
+	<span class="n">cepage</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectMultipleField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;cep1&#39;</span><span class="p">,</span> <span class="s1">&#39;cabernet sauvignon&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;cep2&#39;</span><span class="p">,</span> <span class="s1">&#39;carignan&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;cep3&#39;</span><span class="p">,</span> <span class="s1">&#39;grenache noir&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;cep4&#39;</span><span class="p">,</span> <span class="s1">&#39;syrah&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;cep5&#39;</span><span class="p">,</span> <span class="s1">&#39;muscat&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;cep6&#39;</span><span class="p">,</span> <span class="s1">&#39;chardonnay&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;cep7&#39;</span><span class="p">,</span> <span class="s1">&#39;cinsault&#39;</span><span class="p">)])</span>
+	<span class="n">autract</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;autre activite&#39;</span><span class="p">)</span>
+	<span class="n">autrcult</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectField</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;autre cultures&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;oui&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;non&#39;</span><span class="p">)])</span>
+	<span class="n">typecult</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;type culture&#39;</span><span class="p">)</span>
+	<span class="n">typefonc</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectField</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;type de foncier&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;prop&#39;</span><span class="p">,</span> <span class="s1">&#39;proprietaire&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;loc&#39;</span><span class="p">,</span> <span class="s1">&#39;locataire&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;mist&#39;</span><span class="p">,</span> <span class="s1">&#39;proprietaire et locataire&#39;</span><span class="p">)])</span>
+	<span class="n">certif</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectField</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;certification&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;bio&#39;</span><span class="p">,</span> <span class="s1">&#39;label BIO&#39;</span><span class="p">),(</span><span class="s1">&#39;hve&#39;</span><span class="p">,</span> <span class="s1">&#39;label HVE&#39;</span><span class="p">),(</span><span class="s1">&#39;els&#39;</span><span class="p">,</span> <span class="s1">&#39;autre&#39;</span><span class="p">),(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;aucune&#39;</span><span class="p">)])</span>
+	<span class="n">autrecertif</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;autre certication&#39;</span><span class="p">)</span>
+	<span class="n">qual</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectField</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;certification qualite&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;igp&#39;</span><span class="p">,</span> <span class="s1">&#39;IGP&#39;</span><span class="p">),(</span><span class="s1">&#39;aop&#39;</span><span class="p">,</span> <span class="s1">&#39;AOP&#39;</span><span class="p">),(</span><span class="s1">&#39;elsqual&#39;</span><span class="p">,</span><span class="s1">&#39;autre&#39;</span><span class="p">),(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;aucune&#39;</span><span class="p">)])</span>
+	<span class="n">autrequal</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;autre qualite&#39;</span><span class="p">)</span>
+	<span class="n">ift</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;ift&#39;</span><span class="p">)</span>
+	<span class="n">intrant</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s1">&#39;intrant&#39;</span><span class="p">)</span>
+	<span class="n">irrig</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">RadioField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;no_irrig&#39;</span><span class="p">,</span><span class="s1">&#39;aucune irrigation&#39;</span><span class="p">),(</span><span class="s1">&#39;yes_irrig1&#39;</span><span class="p">,</span> <span class="s1">&#39;oui sur la majorité des parcelles&#39;</span><span class="p">),(</span><span class="s1">&#39;yes_irrig2&#39;</span><span class="p">,</span> <span class="s1">&#39;oui sur certaines parcelles&#39;</span><span class="p">)])</span>
+	<span class="n">mutu</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SelectMultipleField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;init&#39;</span><span class="p">,</span> <span class="s1">&#39;sélectionnez la proposition&#39;</span><span class="p">),(</span><span class="s1">&#39;yes_mutu&#39;</span><span class="p">,</span> <span class="s1">&#39;oui&#39;</span><span class="p">),(</span><span class="s1">&#39;no_mutu&#39;</span><span class="p">,</span> <span class="s1">&#39;non&#39;</span><span class="p">)])</span>
+	
+	<span class="c1">#recaptcha = RecaptchaField()</span>
+	<span class="n">submit</span> <span class="o">=</span> <span class="n">wtforms</span><span class="o">.</span><span class="n">SubmitField</span><span class="p">(</span><span class="s1">&#39;Enregistrer&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_data"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.questionaire.save_data">[docs]</a><span class="k">def</span> <span class="nf">save_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;Cette fonction enregistre les données du questionaire </span>
+
+<span class="sd">	:return: dernières données rentrées pour l&#39;affichage</span>
+<span class="sd">    :rtype: pandas df</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+	<span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+	<span class="c1">#pandas.read_json(&#39;data_agri.json&#39;, orient=&#39;table&#39;)</span>
+	<span class="n">name_exploit</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;name_exploit&#39;</span><span class="p">]</span>
+
+	<span class="k">for</span> <span class="n">keys</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+		<span class="k">if</span> <span class="n">keys</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;csrf_token&#39;</span><span class="p">,</span> <span class="s1">&#39;name_exploit&#39;</span><span class="p">]:</span>
+			<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">name_exploit</span><span class="p">,</span> <span class="n">keys</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">keys</span><span class="p">]</span>
+	<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;submit&#39;</span><span class="p">])</span>
+	<span class="n">df</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="s1">&#39;data_agri.json&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">name_exploit</span><span class="p">]])</span>
+
+	<span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">name_exploit</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">classes</span><span class="o">=</span><span class="s1">&#39;table tablesorter&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">)</span></div>
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

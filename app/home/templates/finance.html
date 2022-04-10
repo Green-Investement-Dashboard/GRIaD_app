@@ -1,0 +1,79 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Finance {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Finance</h3>
+                  <p>Ici sont détaillées les données financières transmises par les différents services financiers.</p>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">EBITDA</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart-area" id='ebitda'> 
+                <script>
+                    var graphs = {{ebitda | safe}};
+                    Plotly.newPlot('ebitda',graphs.data,graphs.layout, config);
+                </script>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Taux d'endettement</h3>
+          </div>
+          <div class="card-body">
+            <div class="chart-area" id='endet'>
+                <script>
+                    var endet = {{endet | safe}};
+                    Plotly.newPlot('endet',endet.data,endet.layout, config);
+                </script>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+<div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Données externes transmises par les différents services financiers. </h3>
+                  <p> Une fois connecté aux services bancaires, ici s'afficheront les données externes.</p>
+                 <center>  <img src="/static/assets/img/loading.gif" 
+                  width="200"
+                  height="200" > </center>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+
+{% block javascripts %}{% endblock javascripts %}

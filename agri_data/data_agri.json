@@ -1,0 +1,29 @@
+{
+    "schema":{
+        "fields":[
+            {
+                "name":"Nom",
+                "type":"string"
+            },
+            {
+                "name":"Lat",
+                "type":"number"
+            },
+            {
+                "name":"Long",
+                "type":"number"
+            }
+        ],
+        "primaryKey":[
+            "Nom"
+        ],
+        "pandas_version":"0.20.0"
+    },
+    "data":[
+        {
+            "Nom":"Agriculteur 1",
+            "Lat":43.583838,
+            "Long":4.161158
+        }
+    ]
+}

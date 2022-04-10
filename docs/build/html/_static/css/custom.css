@@ -1,0 +1,81 @@
+/* Previous themed colors 
+- #2980b9 bleu 1
+- #27ae60 vert
+- #9b59b6 violet
+- #55a5d9 bleu 2
+- #e7f2fa bleu très légé
+*/
+
+/* Our colors
+
+- GREY: #3d3d33
+- GREEN: #5cba47
+
+-Tints of Green: #72b857 #5cba47 #62a34a #bedeae
+
+*/
+
+.wy-side-nav-search{
+	background-color: #72B857;
+}
+
+.wy-side-scroll, .wy-nav-side{
+	background-color: #3D3D34;
+}
+
+a{color:#72b857}
+.wy-tray-container li.wy-tray-item-info{background:#72b857;}
+wy-input-context{color:#72b857;}
+.btn-link:visited{color:#5cba47;}
+a:visited{color:#5cba47;}
+.wy-side-scroll .toctree-l1 a:visited{color:#ffffff !important;}
+.wy-side-scroll .toctree-l2 a:visited{color:#3d3d33 !important;}
+
+
+/* Remplacement #2980b9 */
+.btn-info{
+	background-color:#72b857!important;
+}
+.btn-link{
+	background-color:transparent !important;
+	color:#72b857 !important;
+	box-shadow:none;
+	border-color:transparent !important;
+}
+.wy-dropdown-menu>dd>a:hover{
+	background:#72b857!important;
+	color:#fff;
+	}
+.wy-tray-container li.wy-tray-item-info{
+	background:#5cba47 !important;
+}
+.rst-content .wy-alert-neutral.admonition-todo a,.rst-content .wy-alert-neutral.admonition a,.rst-content .wy-alert-neutral.attention a,.rst-content .wy-alert-neutral.caution a,.rst-content .wy-alert-neutral.danger a,.rst-content .wy-alert-neutral.error a,.rst-content .wy-alert-neutral.hint a,.rst-content .wy-alert-neutral.important a,.rst-content .wy-alert-neutral.note a,.rst-content .wy-alert-neutral.seealso a,.rst-content .wy-alert-neutral.tip a,.rst-content .wy-alert-neutral.warning a,.wy-alert.wy-alert-neutral a{
+	color:#5cba47 !important;
+}
+a:hover{
+	color:#62a34a;
+}
+.wy-inline-validate.wy-inline-validate-info .wy-input-context{color:#62a34a}
+.wy-text-info{color:#62a34a!important}
+a:active{
+	background-color:#62a34a!important;
+	cursor:pointer;
+	color:#fff}
+
+/* Remplacement #55a5d9 */
+p.caption{color:#5cba47 !important;}
+
+/* Remplacement #e7f2fa */
+html.writer-html4 .rst-content dl:not(.docutils)>dt,html.writer-html5 .rst-content dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple)>dt{
+	display:table;
+	margin:6px 0;
+	font-size:90%;
+	line-height:normal;
+	background:#ddedd4 !important;
+	color:#3d3d33 !important;
+	border-top:3px solid #62a34a !important;
+	padding:6px;
+	position:relative}
+
+/* Autre */
+.icon-home{color:#3D3D34 !important;}

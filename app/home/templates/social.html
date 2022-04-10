@@ -1,0 +1,89 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Social {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Social</h3>
+                  <p>Ci-dessous sont détaillés les indicateurs de performance sociale du Chateau FIFG</p>
+                  <h4><i class="tim-icons icon-world2"></i>Facteurs de risques sociaux :</h4>
+                    <ul>
+                      {% for critical in critical_alert[1] %}
+                      <li>{{critical}}</li>
+
+                      {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Rayonnement de l'exploitation</h3>
+            <p> L'absence de mise en place d'action de communication (accueil au domaine, évènementiels, participation à des salons, etc.) peut nuire à la renommé de l'exploitation auprès des clients.</p>
+          </div>
+
+          <div class="card-body">
+            {% for chart in bullet_charts %}
+              <h4>{{chart.title}}</h4>
+              <div class="number_bchart"> 
+                {% if chart.color=='red' %}
+                  <div class="nmb_red">
+                {% elif chart.color=='yellow' %}
+                  <div class="nmb_yellow">
+                {% else %}
+                  <div class="nmb_green">
+                {% endif %}
+                <p>{{chart.value}}</p></div>
+              </div>
+              <div id={{chart.title.split(' ')[0]}}>
+                <script>
+                  var graphs = {{chart.graph | safe}};
+                  Plotly.newPlot({{chart.title.split(' ')[0]}},graphs.data,graphs.layout, config);
+                </script> 
+              </div>
+            {% endfor %}
+            <p> Le Chateau FIFG exporte l'essentielle de sa production aux Etats-Unis. Il existe actuellement un risque d'augmentation des tarifs douaniers.</p>
+        
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Conditions de travail des employés</h3>
+            <p> Lors des vendanges, les conditions de travail peuvent être difficiles et nuire à l'efficacité des employés. <a href="http://grid-tech.fr/FT_Conditions%20de%20travail.pdf" target="_blank">Consultez notre fiche -Condition de travail des employés-</a> pour améliorer vos pratiques. </p>
+          </div>
+          <div class="card-body">
+            <div id='S3_indic'> </div>
+                <script>
+                    var graphs = {{S3_indic | safe}};
+                    Plotly.newPlot('S3_indic',graphs.data,graphs.layout, config);
+                </script>
+            </div>
+          </div>
+        </div>
+    </div>
+  
+<script>
+  var graphs = {{s1 | safe}};
+  Plotly.newPlot('S1',graphs.data,graphs.layout, config);
+
+  var graphs = {{s2 | safe}};
+  Plotly.newPlot('S2',graphs.data,graphs.layout, config);
+</script>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

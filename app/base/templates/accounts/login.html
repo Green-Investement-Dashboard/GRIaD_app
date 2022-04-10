@@ -1,0 +1,67 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Connexion {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+
+        <form role="form" method="post" action="">
+        
+          {{ form.hidden_tag() }} 
+
+          <div class="card-header">
+            <h5 class="title">Login</h5>
+
+            <h6 class="card-category">
+                {% if msg %}
+                  {% if type == "wrong"%} 
+                  <span class="text-danger">
+                  {% elif type == "info"%}
+                  <span class="text-info">
+                  {%endif%}
+                  {{ msg | safe }}</span>
+                {% else %}
+                <span>
+                  Merci de vous connecter
+                </span>
+                {% endif %}  
+            </h6>
+          </div>
+
+          <div class="card-body">
+
+              <div class="row">
+
+                <div class="col-md-3 px-md-1">
+                  <div class="form-group">
+                    <label>Email</label>
+                    {{ form.email(class="form-control", value=user) }}
+                  </div>
+                </div>
+
+              </div>
+
+              <p>Valeurs par défaut: <b>test</b> et <b>test</b></p>
+          </div>
+          <div class="card-footer">
+            <button type="submit" name="login" class="btn btn-fill btn-primary">Se connecter</button>
+            &nbsp; &nbsp;
+            Vous n'avez pas de compte? <a href="{{ url_for('base_blueprint.register') }}" class="text-primary">En créer un</a>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

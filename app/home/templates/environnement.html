@@ -1,0 +1,75 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Environnement {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Environnement</h3>
+                  <p>Ci-dessous sont détaillés les indicateurs environnementaux du Chateau FIFG. </p>
+                  <h4><i class="tim-icons icon-world2"></i>Facteurs de risques environnementaux :</h4>
+                    <ul>
+                      {% for critical in critical_alert[0] %}
+                      <li>{{critical}}</li>
+
+                      {% endfor %}
+                    </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Graphique présentant l'évolution du nombre de jours de canicule depuis 1990.</h3>
+                    <p> A l'horizon 2050, le risque de canicule pesant le Chateau FIFG aura considérablement augmenté. <a href="http://grid-tech.fr/FT_Canicule.pdf" target="_blank">Consultez notre fiche –Mitigation du risque canicule-</a> pour en savoir plus sur les solutions proposées. </p>
+                  <div class="chart" id="graph_cancicule">
+                    <script>
+                        var graphs = {{canicule_map| safe}};
+                        Plotly.newPlot('graph_cancicule',graphs.data,graphs.layout, config);  
+                    </script>
+                  </div>
+                    Données issues du <a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/sis-heat-and-cold-spells?tab=overview" target="_blank">Climate Data Store</a> de l'UE depuis le modèle du GIEC RCP 8.5.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Carte du risque incendie</h3>
+                    <p>En matière de risque incendie, les opérations de prévention sont déterminantes, <a href="http://grid-tech.fr/FT_Incendie.pdf" target="_blank">consultez notre fiche -Mitigation du risque incendie-</a> pour en savoir plus sur les solutions proposées </p>
+
+                  <div class="chart" id="fire_plot">
+                    <script>
+                        var graphs = {{plot_fire| safe}};
+                        Plotly.newPlot('fire_plot',graphs.data,graphs.layout, config);  
+                    </script>
+                  </div>
+                    
+                    Données issues du <a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/sis-tourism-fire-danger-indicators?tab=overview" target="_blank">Climate Data Store</a> de l'UE depuis le modèle du GIEC RCP 4.5.
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+  var graphs = {{canicule | safe}};
+  Plotly.newPlot('chart',graphs.data,graphs.layout,config);
+  
+</script>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

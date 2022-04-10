@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>5.1. agri_data package &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="6. Module app" href="app.html" />
+    <link rel="prev" title="5. Module agri_data" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">5. Module agri_data</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.1. agri_data package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">5.1.1. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-agri_data.data_draw">5.1.2. agri_data.data_draw module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-agri_data.data_import">5.1.3. agri_data.data_import module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-agri_data">5.1.4. Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html"><span class="section-number">5. </span>Module agri_data</a> &raquo;</li>
+        
+      <li><span class="section-number">5.1. </span>agri_data package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/agri_data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="agri-data-package">
+<h1><span class="section-number">5.1. </span>agri_data package<a class="headerlink" href="#agri-data-package" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="submodules">
+<h2><span class="section-number">5.1.1. </span>Submodules<a class="headerlink" href="#submodules" title="Lien permanent vers ce titre">¶</a></h2>
+</div>
+<div class="section" id="module-agri_data.data_draw">
+<span id="agri-data-data-draw-module"></span><h2><span class="section-number">5.1.2. </span>agri_data.data_draw module<a class="headerlink" href="#module-agri_data.data_draw" title="Lien permanent vers ce titre">¶</a></h2>
+<p>© GRID Team, 2021</p>
+<dl class="py class">
+<dt id="agri_data.data_draw.RandomDraw">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">agri_data.data_draw.</span></code><code class="sig-name descname"><span class="pre">RandomDraw</span></code><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe télécharge les données de GitHub et les stocke en local. Pour certains jeux de données, ils sont modifiés par un tri
+alétoire à chaque login</p>
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.data_agri">
+<code class="sig-name descname"><span class="pre">data_agri</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.data_agri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.data_agri" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Télécharge et enregistre les données liées à l’emplacement de l’agriculteur.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.financial_draw">
+<code class="sig-name descname"><span class="pre">financial_draw</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.financial_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.financial_draw" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Randomisation des données financières en 2 étapes:
+1- Selection d’une valeur initiale alétoire dans un intervalle
+2- Tirage aléatoire par rapport à la valeur précédente dans un intervalle</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.graph_val">
+<code class="sig-name descname"><span class="pre">graph_val</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.graph_val"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.graph_val" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Télécharge et enregistre les données pour générer les graphs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.indic_critique">
+<code class="sig-name descname"><span class="pre">indic_critique</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.indic_critique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.indic_critique" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Télécharge et enregistre les données donnant les indices critiques.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.scoring_draw">
+<code class="sig-name descname"><span class="pre">scoring_draw</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.scoring_draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.scoring_draw" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Randomisation des données de scoring dans un intervalle donné</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="agri_data.data_draw.RandomDraw.value_rg">
+<code class="sig-name descname"><span class="pre">value_rg</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_draw.html#RandomDraw.value_rg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_draw.RandomDraw.value_rg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Télécharge et enregistre les données donnant l’amplitude de valeurs des données</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agri_data.data_import">
+<span id="agri-data-data-import-module"></span><h2><span class="section-number">5.1.3. </span>agri_data.data_import module<a class="headerlink" href="#module-agri_data.data_import" title="Lien permanent vers ce titre">¶</a></h2>
+<p>© GRID Team, 2021</p>
+<dl class="py class">
+<dt id="agri_data.data_import.ReadData">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">agri_data.data_import.</span></code><code class="sig-name descname"><span class="pre">ReadData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_import.html#ReadData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_import.ReadData" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe lit les données json disponibles en locals et retourne une dataframe</p>
+<dl class="py method">
+<dt id="agri_data.data_import.ReadData.read_json">
+<code class="sig-name descname"><span class="pre">read_json</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/agri_data/data_import.html#ReadData.read_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#agri_data.data_import.ReadData.read_json" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-agri_data">
+<span id="module-contents"></span><h2><span class="section-number">5.1.4. </span>Module contents<a class="headerlink" href="#module-agri_data" title="Lien permanent vers ce titre">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="app.html" class="btn btn-neutral float-right" title="6. Module app" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="5. Module agri_data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

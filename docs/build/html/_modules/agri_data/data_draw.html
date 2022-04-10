@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>agri_data.data_draw &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="../../_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Code du module</a> &raquo;</li>
+        
+      <li>agri_data.data_draw</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de agri_data.data_draw</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">© GRID Team, 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">SAVE_MODE</span><span class="p">,</span> <span class="n">DEMO_MODE</span>
+
+<div class="viewcode-block" id="RandomDraw"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw">[docs]</a><span class="k">class</span> <span class="nc">RandomDraw</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;Cette classe télécharge les données de GitHub et les stocke en local. Pour certains jeux de données, ils sont modifiés par un tri </span>
+<span class="sd">	alétoire à chaque login</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">root_link</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/Green-Investement-Dashboard/data/data_v2/data_eg&#39;</span>
+
+<div class="viewcode-block" id="RandomDraw.data_agri"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.data_agri">[docs]</a>	<span class="k">def</span> <span class="nf">data_agri</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Télécharge et enregistre les données liées à l&#39;emplacement de l&#39;agriculteur.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+		<span class="n">df_data_agri</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root_link</span><span class="si">}</span><span class="s1">/data_agri.json&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">)</span>
+
+		<span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1">/data_agri.json&#39;</span><span class="p">)</span>
+		<span class="n">df_data_agri</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved Data Agri&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RandomDraw.graph_val"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.graph_val">[docs]</a>	<span class="k">def</span> <span class="nf">graph_val</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Télécharge et enregistre les données pour générer les graphs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">df_graph_val</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root_link</span><span class="si">}</span><span class="s1">/graph_val.json&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">financial_draw</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scoring_draw</span><span class="p">()</span>
+		<span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_graph_val</span><span class="p">)</span>
+
+		<span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1">/graph_data.json&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">df_graph_val</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved Graph Val&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RandomDraw.indic_critique"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.indic_critique">[docs]</a>	<span class="k">def</span> <span class="nf">indic_critique</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Télécharge et enregistre les données donnant les indices critiques.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+		<span class="n">df_indic_critique</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root_link</span><span class="si">}</span><span class="s1">/liste_indic.csv&#39;</span><span class="p">)</span>
+
+		<span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1">/indic_data.json&#39;</span><span class="p">)</span>
+		<span class="n">df_indic_critique</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved Index Critique&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RandomDraw.value_rg"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.value_rg">[docs]</a>	<span class="k">def</span> <span class="nf">value_rg</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Télécharge et enregistre les données donnant l&#39;amplitude de valeurs des données</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+		<span class="n">df_v_range</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">root_link</span><span class="si">}</span><span class="s1">/value_range.json&#39;</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">)</span>
+		
+		<span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1">/value_range.json&#39;</span><span class="p">)</span>
+		<span class="n">df_v_range</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">full_path</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Saved Value range&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RandomDraw.financial_draw"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.financial_draw">[docs]</a>	<span class="k">def</span> <span class="nf">financial_draw</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Randomisation des données financières en 2 étapes:</span>
+<span class="sd">		1- Selection d&#39;une valeur initiale alétoire dans un intervalle</span>
+<span class="sd">		2- Tirage aléatoire par rapport à la valeur précédente dans un intervalle</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">v0</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;F1&#39;</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;F2&#39;</span><span class="p">:</span><span class="mf">1.2</span><span class="p">}</span> <span class="c1">#Valeurs initials</span>
+		<span class="n">var</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;F1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">],</span> <span class="s1">&#39;F2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">]}</span> <span class="c1">#Range de l&#39;interval en %</span>
+
+		<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">v0</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">:</span>
+			<span class="n">new_list</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">v0</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">var</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">v0</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">v0</span><span class="p">[</span><span class="n">index</span><span class="p">],</span><span class="mi">2</span><span class="p">)]</span>
+			<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_graph_val</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+				<span class="n">rd_num</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="o">*</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">new_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">var</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">new_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">var</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">new_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+				<span class="n">new_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rd_num</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">df_graph_val</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;list_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_list</span></div>
+
+<div class="viewcode-block" id="RandomDraw.scoring_draw"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.scoring_draw">[docs]</a>	<span class="k">def</span> <span class="nf">scoring_draw</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Randomisation des données de scoring dans un intervalle donné</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">intervalles</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;E0&#39;</span><span class="p">:[</span><span class="mi">43</span><span class="p">,</span><span class="mi">72</span><span class="p">],</span> <span class="s1">&#39;S0&#39;</span><span class="p">:[</span><span class="mi">45</span><span class="p">,</span><span class="mi">55</span><span class="p">],</span> <span class="s1">&#39;G0&#39;</span><span class="p">:[</span><span class="mi">55</span><span class="p">,</span><span class="mi">100</span><span class="p">]}</span>
+		
+		<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">intervalles</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">df_graph_val</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">intervalles</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">intervalles</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">])]</span></div>
+
+	
+
+<div class="viewcode-block" id="RandomDraw.main"><a class="viewcode-back" href="../../agri_data.html#agri_data.data_draw.RandomDraw.main">[docs]</a>	<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">DEMO_MODE</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Demo mode&#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">data_agri</span><span class="p">()</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">graph_val</span><span class="p">()</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">indic_critique</span><span class="p">()</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">value_rg</span><span class="p">()</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;data_generated&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

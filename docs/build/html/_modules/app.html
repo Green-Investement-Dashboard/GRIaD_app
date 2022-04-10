@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>app &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="../_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Code du module</a> &raquo;</li>
+        
+      <li>app</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de app</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- encoding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modfied for GRID, 2021</span>
+
+<span class="sd">Copyright (c) 2019 - present AppSeed.us</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">url_for</span>
+<span class="kn">from</span> <span class="nn">flask_login</span> <span class="kn">import</span> <span class="n">LoginManager</span>
+<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+<span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">basicConfig</span><span class="p">,</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">getLogger</span><span class="p">,</span> <span class="n">StreamHandler</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">()</span>
+<span class="n">login_manager</span> <span class="o">=</span> <span class="n">LoginManager</span><span class="p">()</span>
+
+
+<span class="n">SAVE_MODE</span><span class="p">,</span> <span class="n">DEMO_MODE</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+<span class="c1">#SAVE_MODE, DEMO_MODE = [True, False]</span>
+<span class="c1">#SAVE_MODE, DEMO_MODE = [False, True]</span>
+
+<div class="viewcode-block" id="register_extensions"><a class="viewcode-back" href="../app.html#app.register_extensions">[docs]</a><span class="k">def</span> <span class="nf">register_extensions</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">login_manager</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="register_blueprints"><a class="viewcode-back" href="../app.html#app.register_blueprints">[docs]</a><span class="k">def</span> <span class="nf">register_blueprints</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">):</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;app.</span><span class="si">{}</span><span class="s1">.routes&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module_name</span><span class="p">))</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">register_blueprint</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">blueprint</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="configure_database"><a class="viewcode-back" href="../app.html#app.configure_database">[docs]</a><span class="k">def</span> <span class="nf">configure_database</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">before_first_request</span>
+    <span class="k">def</span> <span class="nf">initialize_database</span><span class="p">():</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">create_all</span><span class="p">()</span>
+
+    <span class="nd">@app</span><span class="o">.</span><span class="n">teardown_request</span>
+    <span class="k">def</span> <span class="nf">shutdown_session</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="create_app"><a class="viewcode-back" href="../app.html#app.create_app">[docs]</a><span class="k">def</span> <span class="nf">create_app</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="s1">&#39;base/static&#39;</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">register_extensions</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">register_blueprints</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">configure_database</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

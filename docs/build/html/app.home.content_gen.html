@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6.1.2.1.1. app.home.content_gen package &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="6.1.2. app.home package" href="app.home.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="app.html">6. Module app</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="app.html#subpackages">6.1. Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="app.base.html">6.1.1. app.base package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="app.home.html">6.1.2. app.home package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="app.home.html#subpackages">6.1.2.1. Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.home.html#submodules">6.1.2.2. Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.home.html#module-app.home.routes">6.1.2.3. app.home.routes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="app.home.html#module-app.home">6.1.2.4. Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-0">6.2. Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="app.html"><span class="section-number">6. </span>Module app</a> &raquo;</li>
+        
+          <li><a href="app.home.html"><span class="section-number">6.1.2. </span>app.home package</a> &raquo;</li>
+        
+      <li><span class="section-number">6.1.2.1.1. </span>app.home.content_gen package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/app.home.content_gen.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="app-home-content-gen-package">
+<h1><span class="section-number">6.1.2.1.1. </span>app.home.content_gen package<a class="headerlink" href="#app-home-content-gen-package" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="submodules">
+<h2><span class="section-number">6.1.2.1.1.1. </span>Submodules<a class="headerlink" href="#submodules" title="Lien permanent vers ce titre">¶</a></h2>
+</div>
+<div class="section" id="module-app.home.content_gen.graph_generation">
+<span id="app-home-content-gen-graph-generation-module"></span><h2><span class="section-number">6.1.2.1.1.2. </span>app.home.content_gen.graph_generation module<a class="headerlink" href="#module-app.home.content_gen.graph_generation" title="Lien permanent vers ce titre">¶</a></h2>
+<p>© GRID Team, 2021</p>
+<dl class="py class">
+<dt id="app.home.content_gen.graph_generation.BulletChart">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.graph_generation.</span></code><code class="sig-name descname"><span class="pre">BulletChart</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indic_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#BulletChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.BulletChart" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe génère une échelle à 3 couleurs pour un indicateur donné</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indic</strong> (<em>str</em>) – le code indicateur au format Ex, Sx ou Gx (où x est un int)</p></li>
+<li><p><strong>indic_name</strong> – le nom de l’indicateur utilisé pour le titre</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.BulletChart.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#BulletChart.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.BulletChart.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.BulletChart.open">
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#BulletChart.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.BulletChart.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.BulletChart.plot">
+<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#BulletChart.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.BulletChart.plot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Les données sont importées depuis l’__init__</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json contenant le plot</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.BulletChart.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#BulletChart.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.BulletChart.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.home.content_gen.graph_generation.CaniculePlot">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.graph_generation.</span></code><code class="sig-name descname"><span class="pre">CaniculePlot</span></code><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#CaniculePlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.CaniculePlot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe génère le graphique des canicules dans la page Environnement.
+Les données sont importées directement</p>
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.CaniculePlot.find_closest">
+<code class="sig-name descname"><span class="pre">find_closest</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#CaniculePlot.find_closest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.CaniculePlot.find_closest" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Sur la base de la localisation de la PME, recherche le point de donnée le plus proche.
+Ces données deviennent les variables self.lat et self.lon</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.CaniculePlot.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#CaniculePlot.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.CaniculePlot.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Fonction principale de la classe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.CaniculePlot.open">
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#CaniculePlot.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.CaniculePlot.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.CaniculePlot.plot">
+<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#CaniculePlot.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.CaniculePlot.plot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Plot un graphique ligne et stocke l’object json dans self.plot_json</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.CaniculePlot.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#CaniculePlot.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.CaniculePlot.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.home.content_gen.graph_generation.FinancialChart">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.graph_generation.</span></code><code class="sig-name descname"><span class="pre">FinancialChart</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe génère les diagrammes pour la partie finance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><p><strong>*args</strong> – <p>le code indicateur au format Ex, Sx ou Gx (où x est un int)</p>
+</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.FinancialChart.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.FinancialChart.open">
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.FinancialChart.plot_bar">
+<code class="sig-name descname"><span class="pre">plot_bar</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart.plot_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart.plot_bar" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Les données sont importées depuis l’__init__. Génère un graphique barre</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>list d’objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list[json]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.FinancialChart.plot_mltpl_line">
+<code class="sig-name descname"><span class="pre">plot_mltpl_line</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart.plot_mltpl_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart.plot_mltpl_line" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Les données sont importées depuis l’__init__. Génère un graphique ligne avec 2 axes y</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>list d’objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list[json]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.FinancialChart.plot_sgl_line">
+<code class="sig-name descname"><span class="pre">plot_sgl_line</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart.plot_sgl_line"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart.plot_sgl_line" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Les données sont importées depuis l’__init__. Génère un graphique ligne</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>list d’objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list[json]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.FinancialChart.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#FinancialChart.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.FinancialChart.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.home.content_gen.graph_generation.PieChart">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.graph_generation.</span></code><code class="sig-name descname"><span class="pre">PieChart</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indic_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#PieChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.PieChart" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe génère les diagrames camembert</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indic</strong> (<em>str</em>) – le code indicateur au format Ex, Sx ou Gx (où x est un int)</p></li>
+<li><p><strong>indic_name</strong> – le nom de l’indicateur utiliser pour le titre</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.PieChart.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#PieChart.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.PieChart.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.PieChart.open">
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#PieChart.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.PieChart.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.PieChart.plot">
+<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#PieChart.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.PieChart.plot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Les données sont importées depuis l’__init__</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json contenant le plot</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.PieChart.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#PieChart.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.PieChart.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.home.content_gen.graph_generation.RadarChart">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.graph_generation.</span></code><code class="sig-name descname"><span class="pre">RadarChart</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe est utilisée pour représenter le score de plusieurs</p>
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.RadarChart.data_prep">
+<code class="sig-name descname"><span class="pre">data_prep</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart.data_prep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart.data_prep" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Preparation data pour format circulaire</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.RadarChart.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.RadarChart.open">
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.RadarChart.plot">
+<code class="sig-name descname"><span class="pre">plot</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart.plot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Actual plot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.RadarChart.range_bin">
+<code class="sig-name descname"><span class="pre">range_bin</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart.range_bin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart.range_bin" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.graph_generation.RadarChart.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/graph_generation.html#RadarChart.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.graph_generation.RadarChart.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.home.content_gen.index_renderer">
+<span id="app-home-content-gen-index-renderer-module"></span><h2><span class="section-number">6.1.2.1.1.3. </span>app.home.content_gen.index_renderer module<a class="headerlink" href="#module-app.home.content_gen.index_renderer" title="Lien permanent vers ce titre">¶</a></h2>
+<p>© GRID Team, 2021</p>
+<dl class="py class">
+<dt id="app.home.content_gen.index_renderer.CriticalAlert">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.index_renderer.</span></code><code class="sig-name descname"><span class="pre">CriticalAlert</span></code><a class="reference internal" href="_modules/app/home/content_gen/index_renderer.html#CriticalAlert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.index_renderer.CriticalAlert" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe donne las liste des indicateurs considérés comme critique.</p>
+<dl class="py method">
+<dt id="app.home.content_gen.index_renderer.CriticalAlert.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/index_renderer.html#CriticalAlert.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.index_renderer.CriticalAlert.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>liste de listes (une par indicateur) contenant pour chaque la liste des indicateurs critiques</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.home.content_gen.index_renderer.Scoring">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.index_renderer.</span></code><code class="sig-name descname"><span class="pre">Scoring</span></code><a class="reference internal" href="_modules/app/home/content_gen/index_renderer.html#Scoring"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.index_renderer.Scoring" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe donne les données nécessaires au rendu des gauges indiquant les scores ESG</p>
+<dl class="py method">
+<dt id="app.home.content_gen.index_renderer.Scoring.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/index_renderer.html#Scoring.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.index_renderer.Scoring.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>liste de listes (une par indicateur) contenant pour chaque: sa valeur, la valeur max de l’echelle, une liste avec les intervalles de couleurs</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.home.content_gen.map_generation">
+<span id="app-home-content-gen-map-generation-module"></span><h2><span class="section-number">6.1.2.1.1.4. </span>app.home.content_gen.map_generation module<a class="headerlink" href="#module-app.home.content_gen.map_generation" title="Lien permanent vers ce titre">¶</a></h2>
+<p>© GRID Team, 2021</p>
+<dl class="py class">
+<dt id="app.home.content_gen.map_generation.CaniculePlot">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.map_generation.</span></code><code class="sig-name descname"><span class="pre">CaniculePlot</span></code><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#CaniculePlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.CaniculePlot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe génère une heat map des canicules sur la base des données de Copernicus.</p>
+<p>Les données ont été pré-traitées et stockées dans le même répertoire.</p>
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.CaniculePlot.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#CaniculePlot.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.CaniculePlot.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Fonction lançant le tout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.CaniculePlot.plot_at_date">
+<code class="sig-name descname"><span class="pre">plot_at_date</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#CaniculePlot.plot_at_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.CaniculePlot.plot_at_date" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Crée un carte pour un date données</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.CaniculePlot.plot_cursor">
+<code class="sig-name descname"><span class="pre">plot_cursor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#CaniculePlot.plot_cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.CaniculePlot.plot_cursor" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Crée un carte pour différentes dates avec un slider temporel
+(dates définies dans la variable <cite>list_date</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.CaniculePlot.read_json">
+<code class="sig-name descname"><span class="pre">read_json</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#CaniculePlot.read_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.CaniculePlot.read_json" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.home.content_gen.map_generation.FirePlot">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.map_generation.</span></code><code class="sig-name descname"><span class="pre">FirePlot</span></code><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Cette classe génère une carte avec un scatter plot des risques incendies sur la base des données de Copernicus.</p>
+<p>Les données ont été pré-traitées et stockées dans le même répertoire.</p>
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.color_scale">
+<code class="sig-name descname"><span class="pre">color_scale</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.color_scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.color_scale" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Cette fonction accomplit 2 choses en parallèle: création d’une echelle de couleurs pour correpondre au Fire Index européen et
+trouve les valeurs centrales de chacun des intervalles utilisés pour afficher l’echelle de couleur annotée</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>liste de l’echelle de couleurs normée (i.e. valeurs entre 0 et 1) et liste du centre des intervalles</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.main">
+<code class="sig-name descname"><span class="pre">main</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.main" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Fonction lançant le tout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.open">
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.open" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.plot_at_date">
+<code class="sig-name descname"><span class="pre">plot_at_date</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.plot_at_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.plot_at_date" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Crée un carte pour une date donnée</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.plot_cursor">
+<code class="sig-name descname"><span class="pre">plot_cursor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.plot_cursor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.plot_cursor" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Crée un carte pour différentes dates avec un slider temporel
+(dates définies dans la variable <cite>list_date</cite>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie</dt>
+<dd class="field-odd"><p>objet json</p>
+</dd>
+<dt class="field-even">Type renvoyé</dt>
+<dd class="field-even"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.read_json">
+<code class="sig-name descname"><span class="pre">read_json</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.read_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.read_json" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Lecture du fichier .json et tri de l’index</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="app.home.content_gen.map_generation.FirePlot.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/map_generation.html#FirePlot.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.map_generation.FirePlot.save" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.home.content_gen.questionaire">
+<span id="app-home-content-gen-questionaire-module"></span><h2><span class="section-number">6.1.2.1.1.5. </span>app.home.content_gen.questionaire module<a class="headerlink" href="#module-app.home.content_gen.questionaire" title="Lien permanent vers ce titre">¶</a></h2>
+<p>© GRID Team, 2021</p>
+<dl class="py class">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.home.content_gen.questionaire.</span></code><code class="sig-name descname"><span class="pre">QuestionairesAgri</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/questionaire.html#QuestionairesAgri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<p>Cette classe génère le questionaire Flask nécessaire au rendu HTML</p>
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.address">
+<code class="sig-name descname"><span class="pre">address</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Address',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.address" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.age">
+<code class="sig-name descname"><span class="pre">age</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Age',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.age" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.autract">
+<code class="sig-name descname"><span class="pre">autract</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('autre</span> <span class="pre">activite',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.autract" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.autrcult">
+<code class="sig-name descname"><span class="pre">autrcult</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('autre</span> <span class="pre">cultures',),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('y',</span> <span class="pre">'oui'),</span> <span class="pre">('n',</span> <span class="pre">'non')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.autrcult" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.autrecertif">
+<code class="sig-name descname"><span class="pre">autrecertif</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('autre</span> <span class="pre">certication',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.autrecertif" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.autrequal">
+<code class="sig-name descname"><span class="pre">autrequal</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('autre</span> <span class="pre">qualite',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.autrequal" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.cepage">
+<code class="sig-name descname"><span class="pre">cepage</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectMultipleField,</span> <span class="pre">(),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('cep1',</span> <span class="pre">'cabernet</span> <span class="pre">sauvignon'),</span> <span class="pre">('cep2',</span> <span class="pre">'carignan'),</span> <span class="pre">('cep3',</span> <span class="pre">'grenache</span> <span class="pre">noir'),</span> <span class="pre">('cep4',</span> <span class="pre">'syrah'),</span> <span class="pre">('cep5',</span> <span class="pre">'muscat'),</span> <span class="pre">('cep6',</span> <span class="pre">'chardonnay'),</span> <span class="pre">('cep7',</span> <span class="pre">'cinsault')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.cepage" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.certif">
+<code class="sig-name descname"><span class="pre">certif</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('certification',),</span> <span class="pre">{'choices':</span> <span class="pre">[('bio',</span> <span class="pre">'label</span> <span class="pre">BIO'),</span> <span class="pre">('hve',</span> <span class="pre">'label</span> <span class="pre">HVE'),</span> <span class="pre">('els',</span> <span class="pre">'autre'),</span> <span class="pre">('n',</span> <span class="pre">'aucune')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.certif" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.etp">
+<code class="sig-name descname"><span class="pre">etp</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('etp',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.etp" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.haie">
+<code class="sig-name descname"><span class="pre">haie</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('Presence</span> <span class="pre">haies',),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('y1',</span> <span class="pre">'oui</span> <span class="pre">sur</span> <span class="pre">toutes</span> <span class="pre">les</span> <span class="pre">parcelles'),</span> <span class="pre">('y2',</span> <span class="pre">'oui</span> <span class="pre">sur</span> <span class="pre">une</span> <span class="pre">partie</span> <span class="pre">des</span> <span class="pre">parcelles'),</span> <span class="pre">('no',</span> <span class="pre">'non')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.haie" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.ift">
+<code class="sig-name descname"><span class="pre">ift</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('ift',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.ift" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.intrant">
+<code class="sig-name descname"><span class="pre">intrant</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('intrant',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.intrant" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.irrig">
+<code class="sig-name descname"><span class="pre">irrig</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(RadioField,</span> <span class="pre">(),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('no_irrig',</span> <span class="pre">'aucune</span> <span class="pre">irrigation'),</span> <span class="pre">('yes_irrig1',</span> <span class="pre">'oui</span> <span class="pre">sur</span> <span class="pre">la</span> <span class="pre">majorité</span> <span class="pre">des</span> <span class="pre">parcelles'),</span> <span class="pre">('yes_irrig2',</span> <span class="pre">'oui</span> <span class="pre">sur</span> <span class="pre">certaines</span> <span class="pre">parcelles')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.irrig" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.mutu">
+<code class="sig-name descname"><span class="pre">mutu</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectMultipleField,</span> <span class="pre">(),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('yes_mutu',</span> <span class="pre">'oui'),</span> <span class="pre">('no_mutu',</span> <span class="pre">'non')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.mutu" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.name_exploit">
+<code class="sig-name descname"><span class="pre">name_exploit</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Nom</span> <span class="pre">exploitation',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.name_exploit" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.qual">
+<code class="sig-name descname"><span class="pre">qual</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('certification</span> <span class="pre">qualite',),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('igp',</span> <span class="pre">'IGP'),</span> <span class="pre">('aop',</span> <span class="pre">'AOP'),</span> <span class="pre">('elsqual',</span> <span class="pre">'autre'),</span> <span class="pre">('n',</span> <span class="pre">'aucune')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.qual" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.sau">
+<code class="sig-name descname"><span class="pre">sau</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('sau',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.sau" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.submit">
+<code class="sig-name descname"><span class="pre">submit</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SubmitField,</span> <span class="pre">('Enregistrer',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.submit" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.typecult">
+<code class="sig-name descname"><span class="pre">typecult</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('type</span> <span class="pre">culture',),</span> <span class="pre">{})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.typecult" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.home.content_gen.questionaire.QuestionairesAgri.typefonc">
+<code class="sig-name descname"><span class="pre">typefonc</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(SelectField,</span> <span class="pre">('type</span> <span class="pre">de</span> <span class="pre">foncier',),</span> <span class="pre">{'choices':</span> <span class="pre">[('init',</span> <span class="pre">'sélectionnez</span> <span class="pre">la</span> <span class="pre">proposition'),</span> <span class="pre">('prop',</span> <span class="pre">'proprietaire'),</span> <span class="pre">('loc',</span> <span class="pre">'locataire'),</span> <span class="pre">('mist',</span> <span class="pre">'proprietaire</span> <span class="pre">et</span> <span class="pre">locataire')]})&gt;</span></em><a class="headerlink" href="#app.home.content_gen.questionaire.QuestionairesAgri.typefonc" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.home.content_gen.questionaire.save_data">
+<code class="sig-prename descclassname"><span class="pre">app.home.content_gen.questionaire.</span></code><code class="sig-name descname"><span class="pre">save_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/home/content_gen/questionaire.html#save_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home.content_gen.questionaire.save_data" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Cette fonction enregistre les données du questionaire</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>dernières données rentrées pour l’affichage</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé</dt>
+<dd class="field-odd"><p>pandas df</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.home.content_gen">
+<span id="module-contents"></span><h2><span class="section-number">6.1.2.1.1.6. </span>Module contents<a class="headerlink" href="#module-app.home.content_gen" title="Lien permanent vers ce titre">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="app.home.html" class="btn btn-neutral float-left" title="6.1.2. app.home package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

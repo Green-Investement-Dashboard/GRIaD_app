@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Questionnaire {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  {% if end %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title"><i class="tim-icons icon-bulb-63 text-primary"></i>Merci!</h3>
+          </div>
+          <div class="card-body">
+             <p> {{ message }}</p>
+             <div class="table-responsive">{{ table|safe }} </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  {% else%}
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Questionnaire d'entrée</h3>
+          </div>
+          <div class="card-body">
+            <p> Ce questionnaire a pour but de recueillir les données nécessaire à audit. Merci de le remplir avec attention</p>
+            <p> En cas de souci, contactez-nous au 04..... </p>
+
+            <form role="form" method="post" action="" class="questionnaire">
+
+              {{ form.hidden_tag() }} 
+              <div class="col-md-9 px-md-1">
+                <div class="form-group"><label>Nom de l'exploitation</label> {{ form.name_exploit(class="form-control") }} </div>
+                <div class="form-group"><label>Addresse</label>{{ form.address(class="form-control") }}</div>
+                <div class="form-group"><label>Quel est la Surface Agricole Utile (SAU) totale de votre exploitation?</label>{{ form.sau(class="form-control") }}</div>
+                <div class="form-group"><label>Quel est le nombre d'équivalent temps pleins (ETP) annuel de votre exploitation?</label>{{ form.etp(class="form-control") }}</div>
+                <div class="form-group"><label>Avez-vous des haies en bordures de parcelle?</label>{{ form.haie(class="form-control") }}</div>
+                <div class="form-group"><label>Quels cépages sont présents sur votre exploitation?</label>{{ form.cepage(class="form-control") }}</div>
+                <div class="form-group"><label> Réalisez-vous d'autres activités (hors agriculture) sur votre exploitation? Si oui laquelle/lequelles?</label>{{ form.autract(class="form-control") }}</div>
+                <div class="form-group"><label> Cultivez-vous d'autres cultures (hors vigne) sur votre exploitation?</label>{{ form.autrcult(class="form-control") }}</div>
+                <div class="form-group"><label> Quelles autres cultures (hors vigne) cultivez-vous ? (Merci de renseigner le type de culture et la SAU associée)</label>{{ form.typecult(class="form-control") }}</div>
+                <div class="form-group"><label> Quels est le type de foncier sur lequel se trouve l'exploitation ?</label>{{ form.typefonc(class="form-control") }}</div>
+                <div class="form-group"><label> Possédez-vous une certification environnemental?</label>{{ form.certif(class="form-control") }}</div>
+                <div class="form-group"><label> Autre certification environnemental?</label>{{ form.autrecertif(class="form-control") }}</div>
+                <div class="form-group"><label> Possédez-vous une certification de qualité?</label>{{ form.qual(class="form-control") }}</div>
+                <div class="form-group"><label> Autre certification de qualité?</label>{{ form.autrequal(class="form-control") }}</div>
+                <div class="form-group"><label> Quel est l'Indice de Fréquence de Traitement (IFT) moyen sur vos parcelles de vignes ?</label>{{ form.ift(class="form-control") }}</div>
+                <div class="form-group"><label> Quels intrants (autres que produits phytosanitaires) utilisez-vous ? (merci de préciser le nom et la dose/ha utilisée)</label>{{ form.intrant(class="form-control") }}</div>
+                <div class="form-group"><label> Irriguez-vous vos vignes ? </label>{{ form.irrig(class="form-control") }}</div>
+                <!--<div class="form-group"><label> Mutualisez-vous du matériel agricole ? </label>{{ form.irrig(class="form-control") }}</div>-->
+              
+
+              </div>
+              
+          <a href="http://grid-tech.fr/A4.%20Questionnaire.pdf" target="_blank">Cliquez-ici pour consulter l'ensemble du questionnaire</a>
+
+            
+          </div>
+          <div class="card-footer">
+            &nbsp; &nbsp;
+            <button type="submit" name="register" class="btn btn-fill btn-primary">{{ form.submit(class="form-control") }}</button>
+          </form>
+          </div> 
+
+        </div>
+        
+      </div>
+    </div>
+
+  {% endif %}
+
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

@@ -1,0 +1,77 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Gouvernance {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Gouvernance</h3>
+                  <p>Ci-dessous sont détaillés les indicateurs de gouvernance du Chateau FIFG</p>
+                  <h4><i class="tim-icons icon-world2"></i>Facteurs de risques de gouvernance :</h4>
+                    <ul>
+                      {% for critical in critical_alert[2] %}
+                      <li>{{critical}}</li>
+
+                      {% endfor %}
+                    </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Diversification d'activité</h3>
+            <p> La capacité de l’exploitation à organiser ses activités productives et ses relations commerciales de manière suffisamment diversifiée pour surmonter les aléas (risques prix et clients) qu’une production ou qu’un circuit unique pourraient lui faire rencontrer. </p> <p>La diversification est un critère d’indépendance. </p>
+          </div>
+          <div class="card-body">
+            <div id='G6_indic'> </div>
+                <script>
+                    var graphs = {{G6_indic | safe}};
+                    Plotly.newPlot('G6_indic',graphs.data,graphs.layout, config);
+                </script>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Mutualisation du travail</h3>
+            <p> Les formes de mutualisation du travail (banque de travail, entraide, groupement d’employeurs, etc.) permettent de créer des emplois de qualité et de répondre à plusieurs des contraintes du travail agricole, telles que la spécialisation de certaines tâches, les astreintes de présence ou les pics de travail ponctuels. </p>
+          </div>
+          <div class="card-body">
+            <div class="number_bchart"> 
+                {% if G9_indic.color=='red' %}
+                  <div class="nmb_red">
+                {% elif G9_indic.color=='yellow' %}
+                  <div class="nmb_yellow">
+                {% else %}
+                  <div class="nmb_green">
+                {% endif %}
+                <p>{{G9_indic.value}}</p></div>
+              </div>
+              <div id={{G9_indic.title.split(' ')[0]}}>
+                <script>
+                  var graphs = {{G9_indic.graph | safe}};
+                  Plotly.newPlot({{G9_indic.title.split(' ')[0]}},graphs.data,graphs.layout, config);
+                </script> 
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,116 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Page User {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="title">Edit Profile</h5>
+      </div>
+      <div class="card-body">
+        <form role="form" method="post" action="">
+          {{ form.hidden_tag() }} 
+          <div class="row">
+            <div class="col-md-4 pl-md-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                {{ form.email(class="form-control", type="email") }}
+                <!-- <input type="email" class="form-control" value="{{ current_user.email }}"> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pr-md-1">
+              <div class="form-group">
+                <label>Prénom</label>
+                {{ form.nom() }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.prenom }}"> -->
+              </div>
+            </div>
+            <div class="col-md-6 pl-md-1">
+              <div class="form-group">
+                <label>Nom</label>
+                {{ form.prenom() }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.nom }}"> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Plus 1?</label>
+                {{ form.plus1() }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.plus1 }}"> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 pl-md-1">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email du plus 1</label>
+                {{ form.email_plus1(type="email") }}
+                <!-- <input type="email" class="form-control" value="{{ current_user.email }}"> -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pr-md-1">
+              <div class="form-group">
+                <label>Prénom</label>
+                {{ form.prenom_plus1() }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.prenom }}"> -->
+              </div>
+            </div>
+            <div class="col-md-6 pl-md-1">
+              <div class="form-group">
+                <label>Nom</label>
+                {{ form.nom_plus1() }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.nom }}"> -->
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+        <button type="submit" class="btn btn-fill btn-primary" name="modify">Enregistrer</button>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card card-user">
+      <div class="card-body">
+        <p class="card-text">
+          <div class="author">
+            <div class="block block-one"></div>
+            <div class="block block-two"></div>
+            <div class="block block-three"></div>
+            <div class="block block-four"></div>
+            <a href="javascript:void(0)">
+              <img class="avatar" src="/static/assets/img/Logo_Couleur.svg" alt="GRID">
+              <h5 class="title">
+                {{ current_user.username }}
+              </h5>
+            </a>
+            <p class="description">
+              {{ current_user.email }}
+            </p>
+          </div>
+        </p>
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

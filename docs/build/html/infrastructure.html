@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2. Infrastructure &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="3. Indicateurs et graphiques" href="indicateurs.html" />
+    <link rel="prev" title="1. Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Infrastructure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#organisation-globale-du-repertoire">2.1. Organisation globale du répertoire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#point-de-vue-flask-app-python">2.2. Point de vue Flask App / Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#point-de-vue-fronte-end-html">2.3. Point de vue fronte-end / HTML</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">2. </span>Infrastructure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/infrastructure.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="infrastructure">
+<h1><span class="section-number">2. </span>Infrastructure<a class="headerlink" href="#infrastructure" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="organisation-globale-du-repertoire">
+<h2><span class="section-number">2.1. </span>Organisation globale du répertoire<a class="headerlink" href="#organisation-globale-du-repertoire" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le répertoire est organisé autour de deux principaux modules :</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">app</span></code> : module générant l’application et ses rendus</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">agri_data</span></code> : module regroupant et générant les données</p></li>
+</ul>
+<p>Le fichier principal qui lance l’application est situé à la racine, il s’appelle <code class="code docutils literal notranslate"><span class="pre">run.py</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="p">|</span>
+<span class="p">|</span>-- app/                                      <span class="c1"># L&#39;application en elle même</span>
+<span class="p">|</span>    <span class="p">|</span>-- home/                                <span class="c1"># Génération des contenus spécifiques pas page HTML spécifiques</span>
+<span class="p">|</span>    <span class="p">|</span>-- base/                                <span class="c1"># Blueprint, contient la structure de l&#39;application</span>
+<span class="p">|</span>
+<span class="p">|</span>-- agri_data/                                <span class="c1"># Génération des données</span>
+<span class="p">|</span>
+<span class="p">|</span>-- ************************************************************************
+</pre></div>
+</div>
+</div>
+<div class="section" id="point-de-vue-flask-app-python">
+<h2><span class="section-number">2.2. </span>Point de vue Flask App / Python<a class="headerlink" href="#point-de-vue-flask-app-python" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le module <code class="code docutils literal notranslate"><span class="pre">app</span></code> est organisé en 2 sous-modules :</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">home</span></code> qui sert à générer les visuels, en particulier le sous-module <code class="code docutils literal notranslate"><span class="pre">content_gen</span></code></p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">base</span></code> qui sert à gérer l’authentification</p></li>
+</ul>
+<p>Le code est ensuite commenté et précisé dans les modules <a class="reference internal" href="modules.html#agri"><span class="std std-ref">Module agri_data</span></a> et <a class="reference internal" href="app.html#app"><span class="std std-ref">Module app</span></a></p>
+<p>La structure du répértoire ,d’un point de vue Python, est la suivante:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="p">|</span>
+<span class="p">|</span>-- app/                                      <span class="c1"># L&#39;application en elle même</span>
+<span class="p">|</span>    <span class="p">|</span>-- home/
+<span class="p">|</span>         <span class="p">|</span>-- content_gen/                    <span class="c1"># Module générant les visuels</span>
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>-- data/                      <span class="c1"># Données externes pré-traitées</span>
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>-- graph_generation.py        <span class="c1"># Génération des graphiques</span>
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>-- index_renderer.py          <span class="c1"># Génération de l&#39;index</span>
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>-- map_generation.py          <span class="c1"># Génération des cartes</span>
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>-- questionaire.py.py         <span class="c1"># Génération du questionnaire agri</span>
+<span class="p">|</span>         <span class="p">|</span>-- routes.py
+<span class="p">|</span>
+<span class="p">|</span>    <span class="p">|</span>-- base/
+<span class="p">|</span>         <span class="p">|</span>-- forms.py                        <span class="c1"># Script gérant le formulaire de login et d&#39;inscription</span>
+<span class="p">|</span>         <span class="p">|</span>-- models.py                       <span class="c1"># Script gérant la lecture de la base de données des logins</span>
+<span class="p">|</span>         <span class="p">|</span>-- routes.py                       <span class="c1"># Script gérant les actions</span>
+<span class="p">|</span>         <span class="p">|</span>-- util.py                         <span class="c1"># Script gérant le hachage du mot de passe</span>
+<span class="p">|</span>
+<span class="p">|</span>-- agri_data/
+<span class="p">|</span>    <span class="p">|</span>-- data_draw.py                         <span class="c1"># Tirage aléatoire des données</span>
+<span class="p">|</span>    <span class="p">|</span>-- data_import.py                       <span class="c1"># Import des données de GitHub</span>
+<span class="p">|</span>    <span class="p">|</span>-- *.json
+<span class="p">|</span>
+<span class="p">|</span>-- requirements.txt                          <span class="c1"># Librairies nécessaires pour faire fonctionner le code</span>
+<span class="p">|</span>-- environment.yml                           <span class="c1"># Environnement anaconda</span>
+<span class="p">|</span>-- requirements-mysql.txt                    <span class="c1"># Module nécessaire pour Mysql DMBS</span>
+<span class="p">|</span>-- requirements-pqsql.txt                    <span class="c1"># Module nécessaire pour PostgreSql DMBS</span>
+<span class="p">|</span>
+<span class="p">|</span>-- .env                                      <span class="c1"># Variable environnement</span>
+<span class="p">|</span>-- config.py                                 <span class="c1"># Configuration de l&#39;application</span>
+<span class="p">|</span>-- run.py                                    <span class="c1"># Lancement de l&#39;application</span>
+<span class="p">|</span>
+<span class="p">|</span>-- ************************************************************************
+</pre></div>
+</div>
+</div>
+<div class="section" id="point-de-vue-fronte-end-html">
+<h2><span class="section-number">2.3. </span>Point de vue fronte-end / HTML<a class="headerlink" href="#point-de-vue-fronte-end-html" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les fichiers HTML sont organisés autour de 2 dossiers:</p>
+<ul class="simple">
+<li><p><strong>/home</strong> : ici sont stockés les fichiers HTML des pages du dashboard</p></li>
+<li><p><strong>/base</strong> : ici sont stockés les fichiers HTML servant de modèles pour générer les pages</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="p">|</span>
+<span class="p">|</span>-- app/
+<span class="p">|</span>    <span class="p">|</span>-- home/
+<span class="p">|</span>         <span class="p">|</span>-- templates/                       <span class="c1"># Ensemble des pages HTML</span>
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>    <span class="p">|</span>-- *.html
+<span class="p">|</span>
+<span class="p">|</span>    <span class="p">|</span>-- base/
+<span class="p">|</span>         <span class="p">|</span>-- static/
+<span class="p">|</span>         <span class="p">|</span>    <span class="p">|</span>-- &lt;css, JS, images&gt;          <span class="c1"># Fichiers CSS, Javascripts et images</span>
+<span class="p">|</span>         <span class="p">|</span>
+<span class="p">|</span>         <span class="p">|</span>-- templates/                      <span class="c1"># Modèles pour le rendu des pages</span>
+<span class="p">|</span>              <span class="p">|</span>
+<span class="p">|</span>              <span class="p">|</span>-- includes/
+<span class="p">|</span>              <span class="p">|</span>    <span class="p">|</span>-- navigation.html       <span class="c1"># Menu du haut</span>
+<span class="p">|</span>              <span class="p">|</span>    <span class="p">|</span>-- sidebar.html          <span class="c1"># Menu latéral</span>
+<span class="p">|</span>              <span class="p">|</span>    <span class="p">|</span>-- footer.html           <span class="c1"># Pied de page</span>
+<span class="p">|</span>              <span class="p">|</span>    <span class="p">|</span>-- scripts.html          <span class="c1"># Scripts communs aux pages HTML</span>
+<span class="p">|</span>              <span class="p">|</span>
+<span class="p">|</span>              <span class="p">|</span>-- layouts/                   <span class="c1"># Pages masters</span>
+<span class="p">|</span>              <span class="p">|</span>    <span class="p">|</span>-- base.html             <span class="c1"># Layout des pages</span>
+<span class="p">|</span>              <span class="p">|</span>
+<span class="p">|</span>              <span class="p">|</span>-- accounts/                  <span class="c1"># Pages authentification</span>
+<span class="p">|</span>                   <span class="p">|</span>-- login.html            <span class="c1"># Page de Login</span>
+<span class="p">|</span>                   <span class="p">|</span>-- register.html         <span class="c1"># Page d&#39;inscription</span>
+<span class="p">|</span>
+<span class="p">|</span>-- ************************************************************************
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="indicateurs.html" class="btn btn-neutral float-right" title="3. Indicateurs et graphiques" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="intro.html" class="btn btn-neutral float-left" title="1. Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

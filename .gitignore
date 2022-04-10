@@ -1,0 +1,41 @@
+# byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# tests and coverage
+*.pytest_cache
+.coverage
+
+# database & logs
+*.db
+
+*.log
+
+# venv
+env
+venv
+
+# other
+.DS_Store
+/Test
+/data_source
+
+# sphinx docs 
+#_build
+#_static
+#_templates
+
+# javascript
+package-lock.json
+.vscode/symbols.json
+app/home/content_gen/innondations.html
+
+*.pyc
+*.pyc
+*.pyc
+app/home/content_gen/__pycache__/index_renderer.cpython-39.pyc
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

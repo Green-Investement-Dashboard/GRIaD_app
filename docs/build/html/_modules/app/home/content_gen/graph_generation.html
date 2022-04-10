@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>app.home.content_gen.graph_generation &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="../../../../_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Code du module</a> &raquo;</li>
+        
+          <li><a href="../../../app.html">app</a> &raquo;</li>
+        
+      <li>app.home.content_gen.graph_generation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de app.home.content_gen.graph_generation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">© GRID Team, 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">from</span> <span class="nn">agri_data</span> <span class="kn">import</span> <span class="n">data_import</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">app</span> <span class="kn">import</span> <span class="n">SAVE_MODE</span><span class="p">,</span> <span class="n">DEMO_MODE</span>
+
+<div class="viewcode-block" id="BulletChart"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.BulletChart">[docs]</a><span class="k">class</span> <span class="nc">BulletChart</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cette classe génère une échelle à 3 couleurs pour un indicateur donné</span>
+
+<span class="sd">      :param indic: le code indicateur au format Ex, Sx ou Gx (où x est un int)</span>
+<span class="sd">      :type indic: str</span>
+<span class="sd">      :param indic_name: le nom de l&#39;indicateur utilisé pour le titre</span>
+<span class="sd">      :type addr: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indic</span><span class="p">,</span> <span class="n">indic_name</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;graph_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span> <span class="o">=</span> <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;value_range&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">indic</span> <span class="o">=</span> <span class="n">indic</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">indic_name</span> <span class="o">=</span> <span class="n">indic_name</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
+<div class="viewcode-block" id="BulletChart.plot"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.BulletChart.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Les données sont importées depuis l&#39;__init__</span>
+
+<span class="sd">      :return: objet json contenant le plot</span>
+<span class="sd">      :rtype: json</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Indicator</span><span class="p">(</span><span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;gauge&quot;</span><span class="p">,</span> 
+                    <span class="n">gauge</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="s2">&quot;bullet&quot;</span><span class="p">,</span>
+                             <span class="s1">&#39;steps&#39;</span><span class="p">:</span> <span class="p">[</span>
+                                 <span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s2">&quot;#e5f5e0&quot;</span><span class="p">},</span>
+                                 <span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]],</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s2">&quot;#a1d99b&quot;</span><span class="p">},</span>
+                                 <span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">3</span><span class="p">]],</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s2">&quot;#31a354&quot;</span><span class="p">}</span>
+                                 <span class="p">],</span>
+                             <span class="s1">&#39;axis&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]]},</span>
+                             <span class="s1">&#39;bar&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">}</span>
+                             <span class="p">},</span>
+                    <span class="c1">#title = {&#39;text&#39;: f&#39;&lt;b&gt;{self.indic_name}&lt;/b&gt;&#39;},</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> 
+                    <span class="c1">#delta = {&#39;reference&#39;: 300},</span>
+                    <span class="n">domain</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}</span>
+                    <span class="p">)</span>
+      
+      <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> 
+                   <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(61,61,51,0.01)&#39;</span><span class="p">,</span> <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#5cba47&#39;</span><span class="p">),</span>
+                         <span class="p">)</span>
+
+      <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+      <span class="c1">#fig.write_html(&quot;html/gauge.html&quot;)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)</span>
+
+
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_range</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span></div>
+
+<div class="viewcode-block" id="BulletChart.save"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.BulletChart.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">SAVE_MODE</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/BulletChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+          <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span><span class="p">)</span>
+          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved BulletChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/BulletChart_para_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+          <span class="n">outfile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indic_name</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+          <span class="n">outfile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+          <span class="n">outfile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulletChart.open"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.BulletChart.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/BulletChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">openfile</span><span class="p">:</span>
+        <span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">openfile</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plot_json</span><span class="p">)</span>
+
+      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/BulletChart_para_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">list_lines</span> <span class="o">=</span> <span class="n">outfile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indic_name</span> <span class="o">=</span> <span class="n">list_lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">list_lines</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">list_lines</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BulletChart.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.BulletChart.main">[docs]</a>    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">DEMO_MODE</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+      <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;graph&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">indic_name</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">}</span></div></div>
+
+
+
+<div class="viewcode-block" id="PieChart"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.PieChart">[docs]</a><span class="k">class</span> <span class="nc">PieChart</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;Cette classe génère les diagrames camembert</span>
+
+<span class="sd">      :param indic: le code indicateur au format Ex, Sx ou Gx (où x est un int)</span>
+<span class="sd">      :type indic: str</span>
+<span class="sd">      :param indic_name: le nom de l&#39;indicateur utiliser pour le titre</span>
+<span class="sd">      :type addr: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indic</span><span class="p">,</span> <span class="n">indic_name</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span>  <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;graph_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">indic</span> <span class="o">=</span> <span class="n">indic</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">indic_name</span> <span class="o">=</span> <span class="n">indic_name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#35978f&#39;</span><span class="p">,</span> <span class="s1">&#39;#66c2a4&#39;</span><span class="p">,</span> <span class="s1">&#39;#c7eae5&#39;</span><span class="p">,</span> <span class="s2">&quot;#dfc27d&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
+<div class="viewcode-block" id="PieChart.plot"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.PieChart.plot">[docs]</a>  <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Les données sont importées depuis l&#39;__init__</span>
+
+<span class="sd">        :return: objet json contenant le plot</span>
+<span class="sd">        :rtype: json</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Pie</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">))</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+                     <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(61,61,51,0.01)&#39;</span><span class="p">,</span> <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#5cba47&#39;</span><span class="p">),</span>
+                     
+                           <span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="p">)</span>
+    <span class="c1">#fig.write_html(&quot;pie_ch.html&quot;)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PieChart.save"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.PieChart.save">[docs]</a>  <span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">SAVE_MODE</span><span class="p">:</span>
+      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/PieChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved BulletChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PieChart.open"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.PieChart.open">[docs]</a>  <span class="k">def</span> <span class="nf">open</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/PieChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">openfile</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">openfile</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="PieChart.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.PieChart.main">[docs]</a>  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">DEMO_MODE</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span></div></div>
+
+<div class="viewcode-block" id="FinancialChart"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart">[docs]</a><span class="k">class</span> <span class="nc">FinancialChart</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;Cette classe génère les diagrammes pour la partie finance</span>
+
+<span class="sd">    :param *args: le code indicateur au format Ex, Sx ou Gx (où x est un int)</span>
+<span class="sd">    :type indic: str</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_graph</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span>  <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;graph_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">type_graph</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#3D3D34&#39;</span>
+
+<div class="viewcode-block" id="FinancialChart.plot_bar"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart.plot_bar">[docs]</a>  <span class="k">def</span> <span class="nf">plot_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Les données sont importées depuis l&#39;__init__. Génère un graphique barre</span>
+
+<span class="sd">        :return: list d&#39;objet json</span>
+<span class="sd">        :rtype: list[json]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">:</span>
+      <span class="n">list_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">]]</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">],</span> <span class="n">marker_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">)</span>
+      <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(61,61,51,0)&#39;</span><span class="p">,</span> <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">,</span>
+                         <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span> <span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#5cba47&#39;</span><span class="p">),</span> <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+                         <span class="p">)</span>
+      <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+      <span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plot_json</span><span class="p">)</span></div>
+      <span class="c1">#fig.write_html(f&quot;{indic}.html&quot;)</span>
+
+<div class="viewcode-block" id="FinancialChart.plot_sgl_line"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart.plot_sgl_line">[docs]</a>  <span class="k">def</span> <span class="nf">plot_sgl_line</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Les données sont importées depuis l&#39;__init__. Génère un graphique ligne</span>
+
+<span class="sd">        :return: list d&#39;objet json</span>
+<span class="sd">        :rtype: list[json]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">:</span>
+      <span class="n">list_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">]]</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">])</span>
+      <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(61,61,51,0)&#39;</span><span class="p">,</span> <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">,</span>
+                         <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span> <span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#5cba47&#39;</span><span class="p">),</span> <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                         <span class="p">)</span>
+      <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+      <span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plot_json</span><span class="p">)</span></div>
+      <span class="c1">#fig.write_html(f&quot;{indic}_sgl.html&quot;)</span>
+
+
+<div class="viewcode-block" id="FinancialChart.plot_mltpl_line"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart.plot_mltpl_line">[docs]</a>  <span class="k">def</span> <span class="nf">plot_mltpl_line</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Les données sont importées depuis l&#39;__init__. Génère un graphique ligne avec 2 axes y</span>
+
+<span class="sd">        :return: list d&#39;objet json</span>
+<span class="sd">        :rtype: list[json]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">make_subplots</span><span class="p">(</span><span class="n">specs</span><span class="o">=</span><span class="p">[[{</span><span class="s2">&quot;secondary_y&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]])</span>
+    <span class="n">secondary_axes</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">:</span>
+      <span class="n">list_x</span> <span class="o">=</span> <span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">]]</span>
+      <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_x&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">],</span>
+                               <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">]),</span>
+                    <span class="n">secondary_y</span><span class="o">=</span><span class="n">secondary_axes</span>
+                    
+                    <span class="p">)</span>
+      
+      <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(61,61,51,0)&#39;</span><span class="p">,</span> <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">,</span>
+                         <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span> <span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#5cba47&#39;</span><span class="p">),</span> <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                         <span class="p">)</span>
+      <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">title_text</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">secondary_y</span><span class="o">=</span><span class="n">secondary_axes</span><span class="p">)</span>
+      <span class="n">secondary_axes</span><span class="o">=</span><span class="kc">True</span>
+
+    <span class="c1">#fig.write_html(f&quot;{indic}_mtpl.html&quot;)  </span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span> <span class="o">=</span> <span class="p">[</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="FinancialChart.save"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart.save">[docs]</a>  <span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">SAVE_MODE</span><span class="p">:</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;plot_bar&#39;</span><span class="p">,</span> <span class="s1">&#39;plot_sgl_line&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">graph</span><span class="p">,</span> <span class="n">indic</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">):</span>
+          <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/FinancialChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved FinancialChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">indic</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/FinancialChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1">/json_files/FinancialChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FinancialChart.open"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart.open">[docs]</a>  <span class="k">def</span> <span class="nf">open</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;plot_bar&#39;</span><span class="p">,</span> <span class="s1">&#39;plot_sgl_line&#39;</span><span class="p">]:</span>
+      <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/FinancialChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">openfile</span><span class="p">:</span>
+          <span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">openfile</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plot_json</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">indic</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/FinancialChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">openfile</span><span class="p">:</span>
+          <span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">openfile</span><span class="p">)</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">plot_json</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="FinancialChart.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.FinancialChart.main">[docs]</a>  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">DEMO_MODE</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+    <span class="k">else</span><span class="p">:</span> 
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;plot_bar&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_bar</span><span class="p">()</span>
+
+      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;plot_sgl_line&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_sgl_line</span><span class="p">()</span>
+
+      <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;plot_mltpl_line&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_mltpl_line</span><span class="p">()</span>
+        
+    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_graph</span></div></div>
+
+
+<div class="viewcode-block" id="CaniculePlot"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.CaniculePlot">[docs]</a><span class="k">class</span> <span class="nc">CaniculePlot</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;Cette classe génère le graphique des canicules dans la page Environnement.</span>
+<span class="sd">  Les données sont importées directement</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;data/full_data_heatwave.json&#39;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_path</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">agri_data</span> <span class="o">=</span>  <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;data_agri&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#3D3D34&#39;</span><span class="p">,</span> <span class="s1">&#39;#72B857&#39;</span><span class="p">,</span> <span class="s1">&#39;#BA475C&#39;</span><span class="p">,</span> <span class="s2">&quot;#4771BA&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="CaniculePlot.find_closest"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.CaniculePlot.find_closest">[docs]</a>  <span class="k">def</span> <span class="nf">find_closest</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sur la base de la localisation de la PME, recherche le point de donnée le plus proche.</span>
+<span class="sd">    Ces données deviennent les variables self.lat et self.lon</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">temp_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;diff_lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">agri_data</span><span class="p">[</span><span class="s1">&#39;Long&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+    <span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;diff_lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">agri_data</span><span class="p">[</span><span class="s1">&#39;Lat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+    <span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;global_diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;diff_lat&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;diff_lon&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span> <span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="n">temp_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;global_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">(),</span> <span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">temp_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">temp_df</span><span class="p">[</span><span class="s1">&#39;global_diff&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">(),</span> <span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span></div>
+    
+
+<div class="viewcode-block" id="CaniculePlot.plot"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.CaniculePlot.plot">[docs]</a>  <span class="k">def</span> <span class="nf">plot</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Plot un graphique ligne et stocke l&#39;object json dans self.plot_json</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="n">data_extract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)),</span> <span class="p">[</span><span class="s1">&#39;HWD_EU_climate&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+      
+      <span class="n">data</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">data_extract</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">data_extract</span><span class="p">[</span><span class="s1">&#39;HWD_EU_climate&#39;</span><span class="p">],</span> <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+      <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(61,61,51,0)&#39;</span><span class="p">,</span> <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;rgba(0,0,0,0)&#39;</span><span class="p">,</span>
+                         <span class="n">xaxis_title</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span> <span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s1">&#39;Nombre de jours de canicules&#39;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#5cba47&#39;</span><span class="p">),</span> <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                         <span class="p">)</span>
+      <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)</span></div>
+      
+<div class="viewcode-block" id="CaniculePlot.save"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.CaniculePlot.save">[docs]</a>  <span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">SAVE_MODE</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/CaniculePlot.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+          <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span><span class="p">)</span>
+          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved Canicule Plot.json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CaniculePlot.open"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.CaniculePlot.open">[docs]</a>  <span class="k">def</span> <span class="nf">open</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/CaniculePlot.json&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">openfile</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">openfile</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="CaniculePlot.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.CaniculePlot.main">[docs]</a>  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Fonction principale de la classe</span>
+
+<span class="sd">          :return: objet json</span>
+<span class="sd">          :rtype: json</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">if</span> <span class="n">DEMO_MODE</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">find_closest</span><span class="p">()</span>
+        <span class="c1">#self.lat = 43.8 </span>
+        <span class="c1">#self.lon = 3.9</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span></div></div>
+
+
+<div class="viewcode-block" id="RadarChart"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart">[docs]</a><span class="k">class</span> <span class="nc">RadarChart</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;Cette classe est utilisée pour représenter le score de plusieurs &quot;&quot;&quot;</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span>  <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;graph_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val_rg</span> <span class="o">=</span> <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;value_range&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">indic</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+  
+<div class="viewcode-block" id="RadarChart.data_prep"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart.data_prep">[docs]</a>  <span class="k">def</span> <span class="nf">data_prep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Preparation data pour format circulaire&quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;list_x&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RadarChart.range_bin"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart.range_bin">[docs]</a>  <span class="k">def</span> <span class="nf">range_bin</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val_rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">,</span> <span class="s1">&#39;Max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">val_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val_rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">list_indic</span><span class="p">,</span> <span class="s1">&#39;Max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">r_bin</span> <span class="o">=</span> <span class="p">[[],[],[]]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">r_theta</span> <span class="o">=</span> <span class="p">[[],[],[]]</span>
+    
+    <span class="k">for</span> <span class="n">a_bin</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">r_bin</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+      <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val_rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indic</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;list_x&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="RadarChart.plot"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart.plot">[docs]</a>  <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Actual plot&quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatterpolar</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span>
+      <span class="n">theta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="p">,</span>
+      <span class="p">)</span>
+
+    <span class="n">list_indic</span> <span class="o">=</span> <span class="p">[</span><span class="n">indic</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="p">]</span>
+    <span class="n">val_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">val_rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">list_indic</span><span class="p">,</span> <span class="s1">&#39;Max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span><span class="n">polar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">radialaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">val_max</span><span class="p">])),</span>
+      <span class="n">show_legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">write_html</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;html/radar.html&quot;</span><span class="p">)</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">plotly</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">PlotlyJSONEncoder</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RadarChart.save"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart.save">[docs]</a>  <span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">SAVE_MODE</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/RadarChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+          <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span><span class="p">)</span>
+          <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved RadarChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RadarChart.open"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart.open">[docs]</a>  <span class="k">def</span> <span class="nf">open</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current</span><span class="si">}</span><span class="s2">/json_files/RadarChart_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indic</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">openfile</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">openfile</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RadarChart.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.graph_generation.RadarChart.main">[docs]</a>  <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">DEMO_MODE</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data_prep</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_json</span></div></div>
+
+
+    
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="c1">#BulletChart(&#39;S1&#39;, &#39;Test&#39;).plot()</span>
+  <span class="c1">#PieChart(&#39;G6&#39;, &quot;Diversification d&#39;activité&quot;).plot()</span>
+  <span class="c1">#FinancialChart(&#39;F1&#39;, &#39;F2&#39;).plot_bar()</span>
+  <span class="c1">#FinancialChart(&#39;F1&#39;, &#39;F2&#39;).plot_sgl_line()</span>
+  <span class="c1">#FinancialChart(&#39;F1&#39;, &#39;F2&#39;).plot_mltpl_line()</span>
+  
+  <span class="c1">#PlotCanicule().find_closest()</span>
+  <span class="n">RadarChart</span><span class="p">((</span><span class="s1">&#39;E0&#39;</span><span class="p">,</span> <span class="s1">&#39;Indic E&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;E9&#39;</span><span class="p">,</span> <span class="s1">&#39;Indic1&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;S1&#39;</span><span class="p">,</span> <span class="s1">&#39;Indic 2&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;S3&#39;</span><span class="p">,</span> <span class="s1">&#39;Indic 4&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>6.1.1. app.base package &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="6.1.2. app.home package" href="app.home.html" />
+    <link rel="prev" title="6. Module app" href="app.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="app.html">6. Module app</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="app.html#subpackages">6.1. Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">6.1.1. app.base package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">6.1.1.1. Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.base.forms">6.1.1.2. app.base.forms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.base.models">6.1.1.3. app.base.models module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.base.routes">6.1.1.4. app.base.routes module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.base.util">6.1.1.5. app.base.util module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-app.base">6.1.1.6. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="app.home.html">6.1.2. app.home package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="app.html#module-0">6.2. Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="app.html"><span class="section-number">6. </span>Module app</a> &raquo;</li>
+        
+      <li><span class="section-number">6.1.1. </span>app.base package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/app.base.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="app-base-package">
+<h1><span class="section-number">6.1.1. </span>app.base package<a class="headerlink" href="#app-base-package" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="submodules">
+<h2><span class="section-number">6.1.1.1. </span>Submodules<a class="headerlink" href="#submodules" title="Lien permanent vers ce titre">¶</a></h2>
+</div>
+<div class="section" id="module-app.base.forms">
+<span id="app-base-forms-module"></span><h2><span class="section-number">6.1.1.2. </span>app.base.forms module<a class="headerlink" href="#module-app.base.forms" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Modified for GRID, 2021</p>
+<p>Copyright (c) 2019 - present AppSeed.us</p>
+<p>Génère les formulaires d’inscription et de connexion</p>
+<dl class="py class">
+<dt id="app.base.forms.CreateAccountForm">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.base.forms.</span></code><code class="sig-name descname"><span class="pre">CreateAccountForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/forms.html#CreateAccountForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.forms.CreateAccountForm" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt id="app.base.forms.CreateAccountForm.cle">
+<code class="sig-name descname"><span class="pre">cle</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Key',),</span> <span class="pre">{'id':</span> <span class="pre">'key'})&gt;</span></em><a class="headerlink" href="#app.base.forms.CreateAccountForm.cle" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.forms.CreateAccountForm.email">
+<code class="sig-name descname"><span class="pre">email</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Email',),</span> <span class="pre">{'id':</span> <span class="pre">'email_create',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Email</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#app.base.forms.CreateAccountForm.email" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.forms.CreateAccountForm.password">
+<code class="sig-name descname"><span class="pre">password</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(PasswordField,</span> <span class="pre">('Password',),</span> <span class="pre">{'id':</span> <span class="pre">'pwd_create',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#app.base.forms.CreateAccountForm.password" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.forms.CreateAccountForm.username">
+<code class="sig-name descname"><span class="pre">username</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Username',),</span> <span class="pre">{'id':</span> <span class="pre">'username_create',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#app.base.forms.CreateAccountForm.username" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="app.base.forms.LoginForm">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.base.forms.</span></code><code class="sig-name descname"><span class="pre">LoginForm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/forms.html#LoginForm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.forms.LoginForm" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<dl class="py attribute">
+<dt id="app.base.forms.LoginForm.key">
+<code class="sig-name descname"><span class="pre">key</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Password',),</span> <span class="pre">{'id':</span> <span class="pre">'pwd_login',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;,</span> <span class="pre">&lt;wtforms.validators.Length</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#app.base.forms.LoginForm.key" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.forms.LoginForm.password">
+<code class="sig-name descname"><span class="pre">password</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(PasswordField,</span> <span class="pre">('Password',),</span> <span class="pre">{'id':</span> <span class="pre">'pwd_login',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#app.base.forms.LoginForm.password" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.forms.LoginForm.username">
+<code class="sig-name descname"><span class="pre">username</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;UnboundField(TextField,</span> <span class="pre">('Username',),</span> <span class="pre">{'id':</span> <span class="pre">'username_login',</span> <span class="pre">'validators':</span> <span class="pre">[&lt;wtforms.validators.DataRequired</span> <span class="pre">object&gt;]})&gt;</span></em><a class="headerlink" href="#app.base.forms.LoginForm.username" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.base.models">
+<span id="app-base-models-module"></span><h2><span class="section-number">6.1.1.3. </span>app.base.models module<a class="headerlink" href="#module-app.base.models" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Modified for GRID, 2021</p>
+<p>Copyright (c) 2019 - present AppSeed.us</p>
+<p>Sert à lire et écrire dans la db des logins</p>
+<dl class="py class">
+<dt id="app.base.models.User">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">app.base.models.</span></code><code class="sig-name descname"><span class="pre">User</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/models.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.models.User" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Model</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">flask_login.mixins.UserMixin</span></code></p>
+<dl class="py attribute">
+<dt id="app.base.models.User.email">
+<code class="sig-name descname"><span class="pre">email</span></code><a class="headerlink" href="#app.base.models.User.email" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.models.User.id">
+<code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#app.base.models.User.id" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.models.User.password">
+<code class="sig-name descname"><span class="pre">password</span></code><a class="headerlink" href="#app.base.models.User.password" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.models.User.two_fa">
+<code class="sig-name descname"><span class="pre">two_fa</span></code><a class="headerlink" href="#app.base.models.User.two_fa" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.models.User.two_fa_key">
+<code class="sig-name descname"><span class="pre">two_fa_key</span></code><a class="headerlink" href="#app.base.models.User.two_fa_key" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="app.base.models.User.username">
+<code class="sig-name descname"><span class="pre">username</span></code><a class="headerlink" href="#app.base.models.User.username" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.base.models.request_loader">
+<code class="sig-prename descclassname"><span class="pre">app.base.models.</span></code><code class="sig-name descname"><span class="pre">request_loader</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/models.html#request_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.models.request_loader" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.models.user_loader">
+<code class="sig-prename descclassname"><span class="pre">app.base.models.</span></code><code class="sig-name descname"><span class="pre">user_loader</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/models.html#user_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.models.user_loader" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-app.base.routes">
+<span id="app-base-routes-module"></span><h2><span class="section-number">6.1.1.4. </span>app.base.routes module<a class="headerlink" href="#module-app.base.routes" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Modified for GRID, 2021</p>
+<p>Copyright (c) 2019 - present AppSeed.us</p>
+<p>Gère les routines des connnexions et inscription</p>
+<dl class="py function">
+<dt id="app.base.routes.access_forbidden">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">access_forbidden</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#access_forbidden"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.access_forbidden" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.internal_error">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">internal_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#internal_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.internal_error" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.login">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.login" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.logout">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">logout</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#logout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.logout" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.not_found_error">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">not_found_error</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#not_found_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.not_found_error" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.register">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.register" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.route_default">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">route_default</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#route_default"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.route_default" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.shutdown">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">shutdown</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.shutdown" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="app.base.routes.unauthorized_handler">
+<code class="sig-prename descclassname"><span class="pre">app.base.routes.</span></code><code class="sig-name descname"><span class="pre">unauthorized_handler</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/routes.html#unauthorized_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.routes.unauthorized_handler" title="Lien permanent vers cette définition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-app.base.util">
+<span id="app-base-util-module"></span><h2><span class="section-number">6.1.1.5. </span>app.base.util module<a class="headerlink" href="#module-app.base.util" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Modified for GRID, 2021</p>
+<p>Copyright (c) 2019 - present AppSeed.us</p>
+<dl class="py function">
+<dt id="app.base.util.hash_pass">
+<code class="sig-prename descclassname"><span class="pre">app.base.util.</span></code><code class="sig-name descname"><span class="pre">hash_pass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/util.html#hash_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.util.hash_pass" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Hash mot de passe SHA-256</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="app.base.util.verify_pass">
+<code class="sig-prename descclassname"><span class="pre">app.base.util.</span></code><code class="sig-name descname"><span class="pre">verify_pass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provided_password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stored_password</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/base/util.html#verify_pass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.base.util.verify_pass" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Verification du mot de passe par Hash</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-app.base">
+<span id="module-contents"></span><h2><span class="section-number">6.1.1.6. </span>Module contents<a class="headerlink" href="#module-app.base" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Modified for GRID, 2021</p>
+<p>Copyright (c) 2019 - present AppSeed.us</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="app.home.html" class="btn btn-neutral float-right" title="6.1.2. app.home package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="app.html" class="btn btn-neutral float-left" title="6. Module app" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

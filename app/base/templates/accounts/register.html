@@ -1,0 +1,117 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Register {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+
+        <form role="form" method="post" action="">
+        
+          {{ form.hidden_tag() }} 
+
+          <div class="card-header">
+            <h5 class="title">S'inscrire</h5>
+
+            <h6 class="card-category">
+                {% if msg %}
+                  <span class="text-danger">{{ msg | safe }}</span>
+                {% else %}
+                  Remplire le formulaire  
+                {% endif %}
+            </h6>
+          </div>
+          
+          <div class="card-body">
+          {% if register %}
+            {% if registration %}
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Email</label>
+                    {{ form.email(class="form-control", type="email", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Nom</label>
+                    {{ form.nom(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Prénom</label>
+                    {{ form.prenom(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Amenez vous un plus un?</label>
+                    {{ form.plus1(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Email du plus 1</label>
+                    {{ form.email_plus1(class="form-control", type="email", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Nom du plus 1</label>
+                    {{ form.nom_plus1(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Prénom du plus 1</label>
+                    {{ form.prenom_plus1(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+
+
+            {% else %}
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  Inscription reussie! 
+                </div>
+              </div>
+
+            {% endif %} 
+          {% endif %}
+
+          </div>
+          <div class="card-footer">
+            <button type="submit" name="register" class="btn btn-fill btn-primary">S'inscrire</button>
+            &nbsp; &nbsp;
+            Vous avez un compte? <a href="{{ url_for('base_blueprint.login') }}" class="text-primary">Se connecter</a>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

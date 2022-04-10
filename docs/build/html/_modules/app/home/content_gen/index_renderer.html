@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>app.home.content_gen.index_renderer &mdash; Documentation GRID 1.0</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="../../../../_static/GRID_32.png"/>
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> GRID
+          
+
+          
+            
+            <img src="../../../../_static/Logo_Blanc sur Gris.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../intro.html">1. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../infrastructure.html">2. Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../indicateurs.html">3. Indicateurs et graphiques</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../use.html">4. Déploiement et installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">5. Module agri_data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../app.html">6. Module app</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">GRID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Code du module</a> &raquo;</li>
+        
+          <li><a href="../../../app.html">app</a> &raquo;</li>
+        
+      <li>app.home.content_gen.index_renderer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Code source de app.home.content_gen.index_renderer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">© GRID Team, 2021</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">plotly</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">agri_data</span> <span class="kn">import</span> <span class="n">data_import</span>
+
+<div class="viewcode-block" id="Scoring"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.index_renderer.Scoring">[docs]</a><span class="k">class</span> <span class="nc">Scoring</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cette classe donne les données nécessaires au rendu des gauges indiquant les scores ESG </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="c1">#self.data = data_import.ReadData(&#39;scoring&#39;).read_json()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span>  <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;graph_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">value_rg</span> <span class="o">=</span> <span class="n">data_import</span><span class="o">.</span><span class="n">ReadData</span><span class="p">(</span><span class="s1">&#39;value_range&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read_json</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="Scoring.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.index_renderer.Scoring.main">[docs]</a>    <span class="k">def</span> <span class="nf">main</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: liste de listes (une par indicateur) contenant pour chaque: sa valeur, la valeur max de l&#39;echelle, une liste avec les intervalles de couleurs</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+      <span class="n">list_output</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">indic</span> <span class="ow">in</span> <span class="s1">&#39;ESG&#39;</span><span class="p">:</span>
+        <span class="n">indic_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s1">0&#39;</span><span class="p">,</span> <span class="s1">&#39;list_y&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">bin_val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_rg</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">indic</span><span class="si">}</span><span class="s1">0&#39;</span><span class="p">,</span> <span class="s1">&#39;Bin&#39;</span><span class="p">]</span>
+        <span class="n">list_output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">indic_val</span><span class="p">,</span> <span class="n">bin_val</span><span class="p">])</span>
+    
+      <span class="k">return</span> <span class="n">list_output</span></div></div>
+
+<div class="viewcode-block" id="CriticalAlert"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.index_renderer.CriticalAlert">[docs]</a><span class="k">class</span> <span class="nc">CriticalAlert</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Cette classe donne las liste des indicateurs considérés comme critique.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/Green-Investement-Dashboard/data/main/data_eg/liste_indic.csv&#39;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Code input&#39;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="CriticalAlert.main"><a class="viewcode-back" href="../../../../app.home.content_gen.html#app.home.content_gen.index_renderer.CriticalAlert.main">[docs]</a>    <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: liste de listes (une par indicateur) contenant pour chaque la liste des indicateurs critiques</span>
+<span class="sd">        :rtype: list</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+      <span class="n">list_env</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">list_soc</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">list_gouv</span> <span class="o">=</span> <span class="p">[]</span>
+    
+      <span class="k">for</span> <span class="n">an_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Critique&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;E&#39;</span> <span class="ow">in</span> <span class="n">an_id</span><span class="p">:</span>
+          <span class="n">list_env</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">an_id</span><span class="p">,</span> <span class="s1">&#39;Phénomène dangereux&#39;</span><span class="p">])</span>
+    
+        <span class="k">if</span> <span class="s1">&#39;S&#39;</span> <span class="ow">in</span> <span class="n">an_id</span><span class="p">:</span>
+          <span class="n">list_soc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">an_id</span><span class="p">,</span> <span class="s1">&#39;Phénomène dangereux&#39;</span><span class="p">])</span>
+    
+        <span class="k">if</span> <span class="s1">&#39;G&#39;</span> <span class="ow">in</span> <span class="n">an_id</span><span class="p">:</span>
+          <span class="n">list_gouv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">an_id</span><span class="p">,</span> <span class="s1">&#39;Phénomène dangereux&#39;</span><span class="p">])</span>
+    
+      <span class="k">return</span> <span class="p">[</span><span class="n">list_env</span><span class="p">,</span> <span class="n">list_soc</span><span class="p">,</span> <span class="n">list_gouv</span><span class="p">]</span></div></div>
+
+
+
+  
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, GRID Team.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

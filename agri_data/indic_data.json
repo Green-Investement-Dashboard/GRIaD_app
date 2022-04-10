@@ -1,0 +1,292 @@
+{
+    "schema":{
+        "fields":[
+            {
+                "name":"index",
+                "type":"integer"
+            },
+            {
+                "name":"Code input",
+                "type":"string"
+            },
+            {
+                "name":"Ph\u00e9nom\u00e8ne dangereux",
+                "type":"string"
+            },
+            {
+                "name":"Valeur",
+                "type":"number"
+            },
+            {
+                "name":"Critique",
+                "type":"number"
+            },
+            {
+                "name":" Description ",
+                "type":"number"
+            }
+        ],
+        "primaryKey":[
+            "index"
+        ],
+        "pandas_version":"0.20.0"
+    },
+    "data":[
+        {
+            "index":0,
+            "Code input":"E1",
+            "Ph\u00e9nom\u00e8ne dangereux":"Risque de temp\u00e9ratures extr\u00eames",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":1,
+            "Code input":"E2",
+            "Ph\u00e9nom\u00e8ne dangereux":"Risque d'incendie",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":2,
+            "Code input":"E3",
+            "Ph\u00e9nom\u00e8ne dangereux":"Vent violent",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":3,
+            "Code input":"E4",
+            "Ph\u00e9nom\u00e8ne dangereux":"Gr\u00eale",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":4,
+            "Code input":"E5",
+            "Ph\u00e9nom\u00e8ne dangereux":"Glissement de terrain",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":5,
+            "Code input":"E6",
+            "Ph\u00e9nom\u00e8ne dangereux":"Pollution des sols par substance tr\u00e8s dangereuse",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":6,
+            "Code input":"E7",
+            "Ph\u00e9nom\u00e8ne dangereux":"Composition de sol atypique",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":7,
+            "Code input":"E8",
+            "Ph\u00e9nom\u00e8ne dangereux":"Manque d'infiltration",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":8,
+            "Code input":"E9",
+            "Ph\u00e9nom\u00e8ne dangereux":"Pollution de l'eau",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":9,
+            "Code input":"E10",
+            "Ph\u00e9nom\u00e8ne dangereux":"Innondation",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":10,
+            "Code input":"E11",
+            "Ph\u00e9nom\u00e8ne dangereux":"Feu de for\u00eats",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":11,
+            "Code input":"E12",
+            "Ph\u00e9nom\u00e8ne dangereux":"Stress hydrique",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":12,
+            "Code input":"E13",
+            "Ph\u00e9nom\u00e8ne dangereux":"D\u00e9faut de pol\u00e9nisation",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":13,
+            "Code input":"E14",
+            "Ph\u00e9nom\u00e8ne dangereux":"Maladie (perte de biodiversit\u00e9)",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":14,
+            "Code input":"E17",
+            "Ph\u00e9nom\u00e8ne dangereux":"Gros ravageurs",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":15,
+            "Code input":"E18",
+            "Ph\u00e9nom\u00e8ne dangereux":"Perte de surface exploitable",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":16,
+            "Code input":"E19",
+            "Ph\u00e9nom\u00e8ne dangereux":"Bonus r\u00e9silience env",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":17,
+            "Code input":"G1",
+            "Ph\u00e9nom\u00e8ne dangereux":"Eviction",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":18,
+            "Code input":"G2",
+            "Ph\u00e9nom\u00e8ne dangereux":"Perte de savoir faire",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":19,
+            "Code input":"G3",
+            "Ph\u00e9nom\u00e8ne dangereux":"Manque d'adaptation rapide \u00e0 un environnement changeant",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":20,
+            "Code input":"G4",
+            "Ph\u00e9nom\u00e8ne dangereux":"Manque de main d'\u0153uvre permanente qualifi\u00e9e",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":21,
+            "Code input":"G5",
+            "Ph\u00e9nom\u00e8ne dangereux":"Manque de diversit\u00e9 d'activit\u00e9",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":22,
+            "Code input":"G9",
+            "Ph\u00e9nom\u00e8ne dangereux":"Mutualisation du travail",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":23,
+            "Code input":"S1",
+            "Ph\u00e9nom\u00e8ne dangereux":"Perte de renomm\u00e9e",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":24,
+            "Code input":"S2",
+            "Ph\u00e9nom\u00e8ne dangereux":"Difficult\u00e9s \u00e0 l'export",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":25,
+            "Code input":"S3",
+            "Ph\u00e9nom\u00e8ne dangereux":"Diversit\u00e9 de clients insuffisante",
+            "Valeur":null,
+            "Critique":1.0,
+            " Description ":null
+        },
+        {
+            "index":26,
+            "Code input":"S4",
+            "Ph\u00e9nom\u00e8ne dangereux":"Difficult\u00e9 d'approvisionnement en carburant",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":27,
+            "Code input":"S5",
+            "Ph\u00e9nom\u00e8ne dangereux":"Difficult\u00e9 d'approvisionnement en produit phyto-sanitaire",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":28,
+            "Code input":"S6",
+            "Ph\u00e9nom\u00e8ne dangereux":"D\u00e9pendance fournisseurs d'intrants",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":29,
+            "Code input":"S7",
+            "Ph\u00e9nom\u00e8ne dangereux":"Accident du travail",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":30,
+            "Code input":"S8",
+            "Ph\u00e9nom\u00e8ne dangereux":"Manque d'employ\u00e9",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        },
+        {
+            "index":31,
+            "Code input":"S11",
+            "Ph\u00e9nom\u00e8ne dangereux":"Manque d'\u00e9galit\u00e9",
+            "Valeur":null,
+            "Critique":null,
+            " Description ":null
+        }
+    ]
+}
