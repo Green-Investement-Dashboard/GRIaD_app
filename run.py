@@ -34,7 +34,7 @@ import json
 from app.home.content_gen import index_renderer
 from app.home.content_gen import map_generation as mgen
 from app.home.content_gen import graph_generation as ggen
-from app.home.content_gen import questionaire
+#from app.home.content_gen import questionaire
 
 # WARNING: Don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
