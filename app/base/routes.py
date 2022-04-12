@@ -164,18 +164,44 @@ def modify():
     #create_account_form = CreateAccountForm(request.form)
 
     if request.method == 'POST':
-        if form.validate_on_submit():
-            email = form.email.data
-            prenom = form.prenom.data
-            nom = form.nom.data
+        print(form.errors)
+
+        if form.is_submitted():
+            print ("submitted")
+        if form.validate():
+            print ("valid")
+
+        # if form.validate_on_submit():
+        #     print('OK')
+        print('here1')
+        email = form.email.data
+        prenom = form.prenom.data
+        nom = form.nom.data
+        regime = form.regime.data
+        plus1 = form.plus1.data
+        email_plus1 = form.email_plus1.data
+        prenom_plus1 = form.prenom_plus1.data
+        nom_plus1 = form.nom_plus1.data
+        regime_plus1 = form.regime_plus1.data
+
+        if form.plus1.data == 'Non':
+            form.plus1.data = 'Non'
+            form.email_plus1.data = ''
+            form.prenom_plus1.data = ''
+            form.nom_plus1.data = ''
             plus1 = form.plus1.data
             email_plus1 = form.email_plus1.data
             prenom_plus1 = form.prenom_plus1.data
             nom_plus1 = form.nom_plus1.data
-
-            sql = f"update invite set email='{email}' , prenom='{prenom}', nom='{nom}', plus1='{plus1}', email_plus1='{email_plus1}' , prenom_plus1='{prenom_plus1}', nom_plus1='{nom_plus1}' where id='{current_user.id}'"                      
-            print(sql)
-            result = db.engine.execute(sql)
+            regime_plus1 = form.regime_plus1.data
+            sql = f"update invite set email='{email}' , prenom='{prenom}', nom='{nom}', plus1='{plus1}', email_plus1='' , prenom_plus1='', nom_plus1='', regime='{regime}', regime_plus1='' where id='{current_user.id}'"                      
+            sql = f"update invite set email='{email}' , prenom='{prenom}', nom='{nom}', plus1='{plus1}', email_plus1='{email_plus1}' , prenom_plus1='{prenom_plus1}', nom_plus1='{nom_plus1}', regime='{regime}', regime_plus1='{regime_plus1}' where id='{current_user.id}'"                      
+        
+        else:
+            sql = f"update invite set email='{email}' , prenom='{prenom}', nom='{nom}', plus1='{plus1}', email_plus1='{email_plus1}' , prenom_plus1='{prenom_plus1}', nom_plus1='{nom_plus1}', regime='{regime}', regime_plus1='{regime_plus1}' where id='{current_user.id}'"                      
+        print('here')
+        print(sql)
+        result = db.engine.execute(sql)
 
         return render_template('page-user.html', title='Edit Account', form=form)
 
@@ -191,16 +217,14 @@ def modify():
                 form.email.data = row[1]
                 form.nom.data = row[2]
                 form.prenom.data = row[3]
+                form.regime.data = row[8]
 
-                print(row[4])
-                if row[4]:
-                    form.plus1.data = "Oui"
-                else:
-                    form.plus1.data = "Non"
+                form.plus1.data = row[4]
 
                 form.email_plus1.data = row[5]
                 form.nom_plus1.data = row[6]
                 form.prenom_plus1.data = row[7]
+                form.regime_plus1.data = row[9]
             return render_template('page-user.html', title='Edit Account', form=form)
         return redirect('/')
 

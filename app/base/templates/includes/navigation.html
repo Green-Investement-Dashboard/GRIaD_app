@@ -13,7 +13,7 @@
             <a class="navbar-brand" href="javascript:void(0)">
 
 				 
-              Grand Rassemblement Inter anniversaire Délirant
+              Grand Rassemblement Inter anniversaire Déhanché
             </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,25 +25,6 @@
 
             <ul class="navbar-nav ml-auto">
             {% if current_user.is_authenticated %}
-
-              <li class="search-bar input-group">
-                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
-                  <span class="d-lg-none d-md-block">Search</span>
-                </button>
-              </li>
-              <li class="dropdown nav-item">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <div class="notification d-none d-lg-block d-xl-block"></div>
-                  <i class="tim-icons icon-sound-wave"></i>
-                  <p class="d-lg-none">
-                    Notifications
-                  </p>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
-                  <li class="nav-link"><a href="/" class="nav-item dropdown-item">Votre audit est prêt</a></li>
-                  <li class="nav-link"><a href="/env" class="nav-item dropdown-item">Voyez comment améliorer votre score environnemental</a></li>
-                </ul>
-              </li>
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <div class="photo">

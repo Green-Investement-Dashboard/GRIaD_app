@@ -14,10 +14,13 @@
         <h5 class="title">Edit Profile</h5>
       </div>
       <div class="card-body">
+        <h2> Toi </h2>
         <form role="form" method="post" action="">
-          {{ form.hidden_tag() }} 
+          {{ form.hidden_tag() }}
+          {{ form.csrf_token }}
+          {{ form.name }}
           <div class="row">
-            <div class="col-md-4 pl-md-1">
+            <div class="col-md-12 pl-md-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
                 {{ form.email(class="form-control", type="email") }}
@@ -29,32 +32,41 @@
             <div class="col-md-6 pr-md-1">
               <div class="form-group">
                 <label>Prénom</label>
-                {{ form.nom() }}
+                {{ form.nom(class="form-control", ) }}
                 <!-- <input type="text" class="form-control" value="{{ current_user.prenom }}"> -->
               </div>
             </div>
             <div class="col-md-6 pl-md-1">
               <div class="form-group">
                 <label>Nom</label>
-                {{ form.prenom() }}
+                {{ form.prenom(class="form-control", ) }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.nom }}"> -->
+              </div>
+            </div>
+            <div class="col-md-12 pl-md-1">
+              <div class="form-group">
+                <label>Régime:</label>
+                {{ form.regime(class="form-control", ) }}
                 <!-- <input type="text" class="form-control" value="{{ current_user.nom }}"> -->
               </div>
             </div>
           </div>
+        </br></br>
+        <h2>Ta / ton plus 1</h2>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
-                <label>Plus 1?</label>
-                {{ form.plus1() }}
+                <label>Amènes tu une / un  plus 1?</label>
+                {{ form.plus1(class="form-control", ) }}
                 <!-- <input type="text" class="form-control" value="{{ current_user.plus1 }}"> -->
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-4 pl-md-1">
+            <div class="col-md-6 pl-md-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email du plus 1</label>
-                {{ form.email_plus1(type="email") }}
+                {{ form.email_plus1(type="email", class="form-control", ) }}
                 <!-- <input type="email" class="form-control" value="{{ current_user.email }}"> -->
               </div>
             </div>
@@ -62,15 +74,24 @@
           <div class="row">
             <div class="col-md-6 pr-md-1">
               <div class="form-group">
-                <label>Prénom</label>
-                {{ form.prenom_plus1() }}
+                <label>Prénom plus 1</label>
+                {{ form.prenom_plus1(class="form-control", ) }}
                 <!-- <input type="text" class="form-control" value="{{ current_user.prenom }}"> -->
               </div>
             </div>
             <div class="col-md-6 pl-md-1">
               <div class="form-group">
-                <label>Nom</label>
-                {{ form.nom_plus1() }}
+                <label>Nom plus 1</label>
+                {{ form.nom_plus1(class="form-control", ) }}
+                <!-- <input type="text" class="form-control" value="{{ current_user.nom }}"> -->
+              </div>
+            </div>
+          </div>
+           <div class="row">
+            <div class="col-md-12 pl-md-1">
+              <div class="form-group">
+                <label>Régime plus 1</label>
+                {{ form.regime_plus1(class="form-control", ) }}
                 <!-- <input type="text" class="form-control" value="{{ current_user.nom }}"> -->
               </div>
             </div>

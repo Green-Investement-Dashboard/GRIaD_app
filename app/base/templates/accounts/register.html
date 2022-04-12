@@ -30,6 +30,7 @@
           <div class="card-body">
           {% if register %}
             {% if registration %}
+            <h2>Toi</h2>
               <div class="row">
                 <div class="col-md-7 px-md-1">
                   <div class="form-group">
@@ -54,10 +55,20 @@
                   </div>
                 </div>
               </div>
+               <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Régime</label>
+                    {{ form.regime(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+            </br></br>
+              <h2>Ta / ton plus 1</h2>
               <div class="row">
                 <div class="col-md-7 px-md-1">
                   <div class="form-group">
-                    <label>Amenez vous un plus un?</label>
+                    <label>Amènes tu une / un plus un?</label>
                     {{ form.plus1(class="form-control", value='') }}
                   </div>
                 </div>
@@ -83,6 +94,14 @@
                   <div class="form-group">
                     <label>Prénom du plus 1</label>
                     {{ form.prenom_plus1(class="form-control", value='') }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-7 px-md-1">
+                  <div class="form-group">
+                    <label>Régime du plus 1</label>
+                    {{ form.regime_plus1(class="form-control", value='') }}
                   </div>
                 </div>
               </div>

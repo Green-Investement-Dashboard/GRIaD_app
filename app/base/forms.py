@@ -18,19 +18,23 @@ class CreateAccountForm(FlaskForm):
     email    = TextField('Email'        , id='email_create'    , validators=[DataRequired(), Email()])
     prenom = TextField('Prenom')
     nom = TextField('Nom')
+    regime = RadioField(choices=[("Végé",'Végé'),("Non végé", 'Non végé')])
     plus1 = RadioField(choices=[("Non",'Non'),("Oui", 'Oui')])
     email_plus1    = TextField('Email'        , id='email_create'    , validators=[Email()])
     prenom_plus1 = TextField('Prenom plus 1')
     nom_plus1 = TextField('Nom plus 1')
+    regime_plus1 = RadioField(choices=[("Végé",'Végé'),("Non végé", 'Non végé')])
 
 class EditAccountForm(FlaskForm):
     email    = HiddenField('Email'        , id='email_create'    , validators=[DataRequired(), Email()])
     prenom = TextField('Prenom')
     nom = TextField('Nom')
+    regime = RadioField(choices=[("Végé",'Végé'),("Non végé", 'Non végé')])
     plus1 = RadioField(choices=[("Non",'Non'),("Oui", 'Oui')])
-    email_plus1    = TextField('Email'        , id='email_create'    , validators=[DataRequired(), Email()])
+    email_plus1    = TextField('Email'        , id='email_create'    , validators=[Email()])
     prenom_plus1 = TextField('Prenom plus 1')
     nom_plus1 = TextField('Nom plus 1')
+    regime_plus1 = RadioField(choices=[("Végé",'Végé'),("Non végé", 'Non végé')])
 
 
 

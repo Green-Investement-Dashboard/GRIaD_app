@@ -55,10 +55,12 @@ class User(db.Model, UserMixin):
     email = Column(String, unique=True)
     nom = Column(String)
     prenom = Column(String)
+    regime = Column(String)
     plus1 = Column(String)
     email_plus1 = Column(String, unique=True)
     nom_plus1 = Column(String)
     prenom_plus1 = Column(String)
+    regime_plus1 = Column(String)
 
     def __init__(self, **kwargs):
         for property, value in kwargs.items():
