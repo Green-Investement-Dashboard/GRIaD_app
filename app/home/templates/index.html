@@ -35,12 +35,27 @@
       <div class="col-12">
         <div class="card card-chart">
           <div class="card-header">
-            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>List invités</h3>
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Liste invités avec plus 1 associés</h3>
           </div>
           <div class="card-body">
-              <p> Liste des invités <br></p>
               {% for table in tables %}
             {{titles[loop.index]}}
+            {{ table|safe }}
+            {% endfor %}
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Liste invités</h3>
+          </div>
+          <div class="card-body">
+              {% for table in tables_2 %}
+            {{titles_2[loop.index]}}
             {{ table|safe }}
             {% endfor %}
           </div>  

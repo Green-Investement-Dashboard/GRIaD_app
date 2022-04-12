@@ -111,7 +111,7 @@ def finance():
 
 	
 
-@app.route('/ind')
+@app.route('/liste')
 def index():
 	"""Cette fonction génère la page index avec ses représentations graphiques
 
@@ -121,11 +121,23 @@ def index():
 	result2 = db.engine.execute(sql2)
 	rows2 = [row for row in result2]
 	print(rows2)
-	df = pandas.DataFrame(data=rows2, columns=['Index', 'Email', 'Nom', 'Prenom', 'Plus 1?', 'email +', 'Nom +1', 'Email +1'])
-	df = df[['Email', 'Nom', 'Prenom', 'Plus 1?', 'email +', 'Nom +1', 'Email +1']]
+	df = pandas.DataFrame(data=rows2, columns=['Index', 'Email', 'Nom', 'Prenom', 'Plus 1?', 'Email +1', 'Nom +1', 'Prenom +1', 'Regime', 'Regime +1'])
+	df = df[['Email', 'Nom', 'Prenom', 'Regime', 'Plus 1?', 'Email +1', 'Nom +1', 'Prenom +1', 'Regime +1']]
+	df = df.replace('', numpy.nan)
 	print(df)
 
-	return render_template('index.html', tables=[df.to_html(classes=['data', 'table'], index=False)], titles=df.columns.values)
+	df1 = df[['Email', 'Nom', 'Prenom', 'Regime', 'Email +1']].reset_index(drop=True)
+	df2 = df[['Email +1', 'Nom +1', 'Prenom +1', 'Regime +1', 'Email']].reset_index(drop=True)
+	df2 = df2.rename(columns={'Email +1':'Email', 'Nom +1':'Nom', 'Prenom +1':'Prenom', 'Email +1':'Email', 'Regime +1':'Regime', 'Email':'Email +1'})
+	df2 = df2.dropna(subset=['Email'])
+	print(df1)
+	print(df2)
+	df_concat = pandas.concat([df1, df2], ignore_index=True)
+	print(df_concat)
+
+	return render_template('index.html', tables=[df.to_html(classes=['data', 'table'], index=False)], titles=df.columns.values,
+		tables_2=[df_concat.to_html(classes=['data', 'table'], index=False)], titles_2=df_concat.columns.values,
+		)
 
 @app.route('/questionnaire', methods=['GET', 'POST'])
 def set_up_q():
