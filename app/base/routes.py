@@ -59,7 +59,7 @@ def login():
 
             #render = run.index()
             #return render
-            return redirect(f"/modify2")
+            return redirect(f"/dashboard")
                 
         else:
             return redirect(f"/register")
@@ -80,7 +80,7 @@ def login():
 
     #render = run.index()
     #return render
-    return redirect(f"/modify2")
+    return redirect(f"/dashboard")
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
