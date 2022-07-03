@@ -1,0 +1,98 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard inscription {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-profile">
+                <div class="card-body">
+                    <h3 class="card-title">Dashboard inscription</h3>
+                    <div class="chart" id="indic_evol_signup">
+                    <script>
+                        var graphs = {{evol_signup| safe}};
+                        Plotly.newPlot('indic_evol_signup',graphs.data,graphs.layout, config);  
+                    </script>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Inscription</h3>
+            <p> Nombre de personnes inscrites </p>
+          </div>
+          <div class="card-body">
+            <div class="chart" id="indic_signup">
+              <script>
+                  var graphs = {{signup| safe}};
+                  Plotly.newPlot('indic_signup',graphs.data,graphs.layout, config);  
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Typologie des inscrits</h3>
+            <p> </p>
+          </div>
+          <div class="card-body">
+            <div class="chart" id="indic_signup_type">
+              <script>
+                  var graphs = {{signup_type| safe}};
+                  Plotly.newPlot('indic_signup_type',graphs.data,graphs.layout, config);  
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Régime</h3>
+            <p> Régime des inscrits </p>
+          </div>
+          <div class="card-body">
+            <div class="chart" id="indic_vege">
+              <script>
+                  var graphs = {{vege| safe}};
+                  Plotly.newPlot('indic_vege',graphs.data,graphs.layout, config);  
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title">Résumé financier</h3>
+            <p></p>
+          </div>
+          <div class="card-body">
+            <div class="chart" id="indic_money">
+              <script>
+                  var graphs = {{money| safe}};
+                  Plotly.newPlot('indic_money',graphs.data,graphs.layout, config);  
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}{% endblock javascripts %}

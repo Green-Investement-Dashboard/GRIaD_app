@@ -15,6 +15,18 @@
 
         <ul class="nav">
         {% if current_user.is_authenticated %}
+         <li class="{% if 'maps' in segment %} active {% endif %}">
+            <a href="/dashboard">
+              <i class="tim-icons icon-world2"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="{% if 'maps' in segment %} active {% endif %}">
+            <a href="/list">
+              <i class="tim-icons icon-world2"></i>
+              <p>Liste des inscrits</p>
+            </a>
+          </li>
         <li class="active">
             <a target="_blank" 
                href="https://grid-tech.fr">

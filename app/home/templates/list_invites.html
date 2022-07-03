@@ -1,0 +1,61 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Synthèse {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title"><i class="tim-icons icon-bulb-63 text-primary"></i>Bienvenue !</h3>
+          </div>
+          <div class="card-body">
+              <p> Bienvenue sur le dashboard du projet GRIaD </p>
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Liste invités avec plus 1 associés</h3>
+          </div>
+          <div class="card-body">
+              {% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+            {% endfor %}
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Liste invités</h3>
+          </div>
+          <div class="card-body">
+              {% for table in tables_2 %}
+            {{titles_2[loop.index]}}
+            {{ table|safe }}
+            {% endfor %}
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+{% endblock javascripts %}

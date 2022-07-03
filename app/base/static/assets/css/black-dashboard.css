@@ -1652,6 +1652,7 @@ pre code {
   margin-bottom: 1rem;
   color: #525f7f;
   background-color: transparent;
+  overflow-x: scroll
 }
 
 .table th,
@@ -5210,6 +5211,7 @@ input[type="button"].btn-block {
 .card-body {
   flex: 1 1 auto;
   padding: 1.5rem;
+  overflow-x: scroll;
 }
 
 .card-title {
@@ -18797,8 +18799,7 @@ code {
 .rtl .main-panel {
   position: fixed;
   height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: scroll;
 }
 
 @media screen and (max-width: 768px) {

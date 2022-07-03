@@ -34,6 +34,7 @@ import json
 from app.home.content_gen import index_renderer
 from app.home.content_gen import map_generation as mgen
 from app.home.content_gen import graph_generation as ggen
+from app.home.content_gen import dashboard_invite as dbi
 #from app.home.content_gen import questionaire
 
 # WARNING: Don't run with debug turned on in production!
@@ -109,7 +110,6 @@ def finance():
 
 	return render_template('finance.html', ebitda=list_graph[0], endet=list_graph[1])
 
-	
 
 @app.route('/liste')
 def index():
@@ -138,6 +138,29 @@ def index():
 	return render_template('index.html', tables=[df.to_html(classes=['data', 'table'], index=False)], titles=df.columns.values,
 		tables_2=[df_concat.to_html(classes=['data', 'table'], index=False)], titles_2=df_concat.columns.values,
 		)
+
+@app.route('/dashboard')
+def dashboard_creator():
+	init = dbi.DataPreparation()
+	init.main()
+
+	evol_signup = init.evol_signup_indic()
+	signup = init.signup_indic()
+	signup_type = init.signup_type_indic()
+	vege = init.vege_indic()
+	money = init.finance_indic()
+
+	return render_template('dashboard.html', evol_signup = evol_signup, signup=signup, signup_type=signup_type, vege=vege, money=money)
+
+@app.route('/list')
+def list_creator():
+	init = dbi.DataPreparation()
+	init.main()
+	init.list_invite()
+
+	return render_template('list_invites.html', tables=init.tables_show, titles=init.titles_show,
+		tables_2=init.tables_show_united, titles_2=init.titles_show_united,)
+
 
 @app.route('/questionnaire', methods=['GET', 'POST'])
 def set_up_q():
