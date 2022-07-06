@@ -40,6 +40,8 @@ class DataPreparation:
 		self.guests = main_guest.merge(secondary_guest, how='outer')
 		self.guests = self.guests.replace({'Main RSVP':{'Oui, je serai là.':True, 'Désolé, je ne peux pas venir.':False, 'Oui': True, 'Non':False},
 		                        'Secondary RSVP':{'Oui, je serai là.':True, 'Désolé, je ne peux pas venir.':False, 'Oui': True, 'Non':False}})
+		
+		self.guests[['Montant attendu', 'Montant regle']] = self.guests.loc[:,['Montant attendu', 'Montant regle']].fillna("0")
 		self.guests['Montant attendu'] = self.guests.loc[:,'Montant attendu'].apply(lambda x: x[:-1])
 		self.guests['Montant regle'] = self.guests.loc[:,'Montant regle'].apply(lambda x: x[:-1])
 		self.guests[['Montant attendu', 'Montant regle']] = self.guests[['Montant attendu', 'Montant regle']].apply(pandas.to_numeric)
