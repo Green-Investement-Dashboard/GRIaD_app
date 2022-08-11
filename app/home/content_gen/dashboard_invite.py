@@ -25,14 +25,14 @@ class DataPreparation:
 	def prepare_data(self):
 		main_guest = self.df_full[['Horodateur', 'Adresse e-mail', 'Serez-vous present',	'Prénom', 'Nom', 'Régime', 
                       'Plus 1', 'E-mail', 'Montant attendu', 'Montant regle', 'Train arrivée', "Heure d'arrivée", 'Train départ', 'Heure départ']]
-		main_guest['Statut'] = 'Main'
+		main_guest.loc[:,'Statut'] = 'Main'
 		main_guest = main_guest.rename(columns={'Adresse e-mail':'Main email', 'Serez-vous present':'Main RSVP', 
 		                                                  'Plus 1':'Secondary RSVP', 'E-mail':'Secondary email'})
 		main_guest = main_guest.dropna(subset=['Horodateur'])
 
 		secondary_guest = self.df_full[['Horodateur', 'E-mail', 'Plus 1', 'Prénom.1', 'Nom.1', 'Régime.1', 
                                 'Serez-vous present', 'Adresse e-mail', 'Montant attendu', 'Montant regle', 'Train arrivée',	"Heure d'arrivée",	'Train départ', 'Heure départ']]
-		secondary_guest['Statut'] = 'Secondary'
+		secondary_guest.loc[:,'Statut'] = 'Secondary'
 		secondary_guest = secondary_guest.rename(columns={'E-mail':'Main email', 'Plus 1':'Main RSVP',	'Prénom.1':'Prénom', 'Nom.1':'Nom', 'Régime.1':'Régime', 
 		                                                  'Serez-vous present':'Secondary RSVP', 'Adresse e-mail':'Secondary email'})
 		secondary_guest = secondary_guest.dropna(subset=['Main email'])
@@ -40,15 +40,13 @@ class DataPreparation:
 		self.guests = main_guest.merge(secondary_guest, how='outer')
 		self.guests = self.guests.replace({'Main RSVP':{'Oui, je serai là.':True, 'Désolé, je ne peux pas venir.':False, 'Oui': True, 'Non':False},
 		                        'Secondary RSVP':{'Oui, je serai là.':True, 'Désolé, je ne peux pas venir.':False, 'Oui': True, 'Non':False}})
-		
 		self.guests[['Montant attendu', 'Montant regle']] = self.guests.loc[:,['Montant attendu', 'Montant regle']].fillna("0")
 		self.guests['Montant attendu'] = self.guests.loc[:,'Montant attendu'].apply(lambda x: x[:-1])
 		self.guests['Montant regle'] = self.guests.loc[:,'Montant regle'].apply(lambda x: x[:-1])
 		self.guests[['Montant attendu', 'Montant regle']] = self.guests[['Montant attendu', 'Montant regle']].apply(pandas.to_numeric)
 		self.guests.loc[self.guests['Montant attendu']>60, ['Montant attendu', 'Montant regle']] = self.guests[['Montant attendu', 'Montant regle']]/2
 		self.guests['Horodateur'] = pandas.to_datetime(self.guests['Horodateur'], format='%d/%m/%Y %H:%M:%S')
-		print(self.guests.columns)
-
+		
 	def kpi (self):
 		self.nb_ppl = self.guests.loc[self.guests['Main RSVP']].shape[0]
 		self.nb_main_ppl = self.guests.loc[(self.guests['Main RSVP']) & (self.guests['Statut']=='Main')].shape[0]
@@ -63,8 +61,16 @@ class DataPreparation:
 		self.evol_signup = self.evol_signup.groupby('Horodateur').sum()
 		self.evol_signup = self.evol_signup.sort_index()
 		self.evol_signup = self.evol_signup.cumsum()
-		print(self.evol_signup)
+		#print(self.evol_signup)
 		#self.evol_signup.index = pandas.to_datetime(self.evol_signup.index)
+
+	def list_missing_payment (self):
+		self.paid_df = self.guests.copy()
+		self.paid_df['Paid'] = self.paid_df.apply(lambda x: x['Montant attendu']==x['Montant regle'],axis=1)
+		self.paid_df['Str builder'] = self.paid_df.apply(lambda x: f"{x['Prénom']} {x['Nom']}: {x['Montant regle']}€/{x['Montant attendu']}€ ",axis=1)
+		self.list_missing_payment = list(self.paid_df.loc[~self.paid_df['Paid'], 'Str builder'])
+		self.list_payment = list(self.paid_df.loc[self.paid_df['Paid'], 'Str builder'])
+		print(self.list_missing_payment)
 
 	def signup_indic (self):
 		data = go.Figure(go.Indicator(mode = "number+gauge",
@@ -166,6 +172,7 @@ class DataPreparation:
 	def main (self):
 		self.read_data()
 		self.prepare_data()
+		self.list_missing_payment()
 		self.kpi()
 		self.sign_up()
 

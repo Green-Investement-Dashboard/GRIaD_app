@@ -152,6 +152,16 @@ def dashboard_creator():
 
 	return render_template('dashboard.html', evol_signup = evol_signup, signup=signup, signup_type=signup_type, vege=vege, money=money)
 
+@app.route('/paiement')
+def paiment():
+	init = dbi.DataPreparation()
+	init.main()
+
+	list_non_paiment = init.list_missing_payment
+	list_paiment = init.list_payment
+
+	return render_template('list_payment.html', list_non_payment = list_non_paiment, list_payment = list_paiment)
+
 @app.route('/list')
 def list_creator():
 	init = dbi.DataPreparation()
