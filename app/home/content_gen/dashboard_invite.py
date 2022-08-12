@@ -9,6 +9,7 @@ import json
 import plotly
 import numpy
 from plotly.subplots import make_subplots
+#import unicodedata
 
 class DataPreparation:
 	URL = 'https://docs.google.com/spreadsheets/d/1aFWy3aq3cwQYYTzDHDft_PqAC94e4Kw3LXzB6B5S3Ug/export?format=csv&gid=52273500'
@@ -70,7 +71,70 @@ class DataPreparation:
 		self.paid_df['Str builder'] = self.paid_df.apply(lambda x: f"{x['Prénom']} {x['Nom']}: {x['Montant regle']}€/{x['Montant attendu']}€ ",axis=1)
 		self.list_missing_payment = list(self.paid_df.loc[~self.paid_df['Paid'], 'Str builder'])
 		self.list_payment = list(self.paid_df.loc[self.paid_df['Paid'], 'Str builder'])
-		print(self.list_missing_payment)
+		
+
+	def cross_check_invites (self):
+		self.original_invites = pandas.read_excel('list_invites.xlsx')
+		print(self.original_invites)
+
+		self.original_invites = self.original_invites[['Nom', 'Prénom', 'Invité par', 'Priorité']]
+		self.original_invites['Nom'] = self.original_invites['Nom'].str.lower().str.split(' ').str[0].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')
+
+		self.dico_df = {}
+		self.count_df = None
+
+		self.guests_temp = self.guests.loc[self.guests['Statut']=='Main']
+		self.guests_temp['Nom'] = self.guests['Nom'].str.lower().str.split(' ').str[0].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8')
+		self.guests_temp.loc[:,'Priorité'] = numpy.nan
+
+		for prio in self.original_invites['Priorité'].unique():
+			self.original_invites_prio = self.original_invites.loc[self.original_invites['Priorité']==prio]
+			self.guests_temp_prio = self.guests_temp[(self.guests_temp['Priorité'].isna()) | (self.guests_temp['Priorité'].isna())==prio]
+
+			self.merge_df = pandas.merge(self.guests_temp_prio, self.original_invites_prio, 
+				left_on=self.guests_temp_prio['Nom'], right_on=self.original_invites_prio['Nom'],  how='outer', indicator=True)
+
+			self.merge_df_copy = self.merge_df.copy()
+			
+			self.merge_df_copy['Nom'] = self.merge_df_copy['key_0'].str.upper()
+			self.merge_df_copy.loc[~self.merge_df_copy['Prénom_x'].isna(), 'Prénom'] = self.merge_df_copy.loc[~self.merge_df_copy['Prénom_x'].isna(), 'Prénom_x']
+			self.merge_df_copy.loc[~self.merge_df_copy['Prénom_y'].isna(), 'Prénom'] = self.merge_df_copy.loc[~self.merge_df_copy['Prénom_y'].isna(), 'Prénom_y']
+			
+			self.merge_df_copy.loc[~self.merge_df_copy['Priorité_x'].isna(), 'Priorité'] = self.merge_df_copy.loc[~self.merge_df_copy['Priorité_x'].isna(), 'Priorité_x']
+			self.merge_df_copy.loc[~self.merge_df_copy['Priorité_y'].isna(), 'Priorité'] = self.merge_df_copy.loc[~self.merge_df_copy['Priorité_y'].isna(), 'Priorité_y']
+
+
+			self.merge_df_copy = self.merge_df_copy[['Nom', 'Prénom', 'Priorité', 'Main RSVP', 'Secondary RSVP', '_merge', 'Invité par']]
+			self.merge_df_copy[['Main RSVP', 'Secondary RSVP']] = self.merge_df_copy[['Main RSVP', 'Secondary RSVP']].fillna(False)
+			self.merge_df_copy = self.merge_df_copy.rename(columns = {'Nom_x':'Nom', 'Prénom_x':'Prénom', 'Priorité_x':'Priorité', 
+				'Main RSVP':'Vient?', '_merge':'Sur quel liste', 'Secondary RSVP':'Avec plus 1?'})
+			self.merge_df_copy = self.merge_df_copy.replace({'left_only': 'Sur la liste mais pas invité.e', 'right_only': 'Invité.e mais pas inscrit.e',
+			'both':'Invité.e et inscrit.e'})
+
+			print(self.merge_df_copy)
+			self.dico_df[prio] = self.merge_df_copy.to_html(classes=['data', 'table'], index=False)
+
+			self.guests_temp = self.guests_temp.set_index('Main email')
+			self.merge_df =  self.merge_df.set_index('Main email')
+			IoI = self.merge_df.loc[self.merge_df['_merge'].isin(['both'])].index
+
+			self.guests_temp.loc[IoI] = prio
+			self.guests_temp = self.guests_temp.reset_index()
+
+			if self.count_df is None:
+				self.count_df = self.merge_df.groupby('_merge').count()[['key_0']]
+			else:
+				self.count_df = pandas.merge(self.count_df.reset_index(), self.merge_df.groupby('_merge').count()['key_0'].reset_index(), on='_merge')
+
+			self.count_df = self.count_df.rename(columns={'key_0': prio})
+
+		self.count_df = self.count_df.rename(columns={'_merge':'Type de liste'}).drop(columns='index').set_index('Type de liste')[[1,2,3]]
+		self.count_df = self.count_df.rename(index={'left_only': 'Inscrits sur la liste mais pas invités', 'right_only': 'Invités mais pas inscrit',
+			'both':'Invités et inscrits'})
+		self.count_df_list = self.count_df.to_html(classes=['data', 'table'], index=True)
+
+
+
 
 	def signup_indic (self):
 		data = go.Figure(go.Indicator(mode = "number+gauge",
@@ -117,7 +181,7 @@ class DataPreparation:
 
 	def evol_signup_indic (self):
 		data = go.Scatter(x=self.evol_signup.index, y=self.evol_signup['Main RSVP'])
-		print(self.evol_signup.index)
+		
 		layout = go.Layout(paper_bgcolor='rgba(61,61,51,0)', plot_bgcolor='rgba(0,0,0,0)',
                          xaxis_title='Date' , yaxis_title="Nombre d'inscrits", font=dict(color='#5cba47'), margin=dict(l=0, r=20, t=20, b=0),
                          )
@@ -175,4 +239,5 @@ class DataPreparation:
 		self.list_missing_payment()
 		self.kpi()
 		self.sign_up()
+		self.cross_check_invites()
 

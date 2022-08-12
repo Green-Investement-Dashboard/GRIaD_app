@@ -171,6 +171,16 @@ def list_creator():
 	return render_template('list_invites.html', tables=init.tables_show, titles=init.titles_show,
 		tables_2=init.tables_show_united, titles_2=init.titles_show_united,)
 
+@app.route('/invite_list')
+def invite_on_list():
+	init = dbi.DataPreparation()
+	init.main()
+
+	count_df = init.count_df_list
+	table_dict = init.dico_df
+
+	return render_template('invite_on_list.html', count_df=count_df, table_dict=table_dict)
+
 
 @app.route('/questionnaire', methods=['GET', 'POST'])
 def set_up_q():
