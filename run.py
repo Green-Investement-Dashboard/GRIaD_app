@@ -156,11 +156,18 @@ def dashboard_creator():
 def paiment():
 	init = dbi.DataPreparation()
 	init.main()
+	money = init.finance_indic()
 
 	list_non_paiment = init.list_missing_payment
 	list_paiment = init.list_payment
 
-	return render_template('list_payment.html', list_non_payment = list_non_paiment, list_payment = list_paiment)
+	non_payment_df = init.df_missing_payment
+	print(non_payment_df)
+	payment_df = init.df_payment
+
+	pct_payment = init.pct_paid
+
+	return render_template('list_payment.html', non_payment_df = non_payment_df, payment_df = payment_df, money=money, pct_payment=pct_payment)
 
 @app.route('/list')
 def list_creator():

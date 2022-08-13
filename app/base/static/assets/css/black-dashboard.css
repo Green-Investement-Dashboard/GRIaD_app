@@ -251,6 +251,8 @@ table {
   border-collapse: collapse;
 }
 
+
+
 caption {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -16846,6 +16848,10 @@ hr {
 .table>tfoot>tr {
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
+}
+
+tr:hover td{
+  background-color: "#3D3D34" !important;
 }
 
 .table-responsive {

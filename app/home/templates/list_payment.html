@@ -13,7 +13,13 @@
             <h3 class="card-title"><i class="tim-icons icon-bulb-63 text-primary"></i>Bienvenue !</h3>
           </div>
           <div class="card-body">
-              <p> Bienvenue sur le dashboard du projet GRIaD </p>
+              <p> Sur le total des inscrits, <b>{{ pct_payment }}%</b> ont payé.</p>
+              <div class="chart" id="indic_money">
+              <script>
+                  var graphs = {{money| safe}};
+                  Plotly.newPlot('indic_money',graphs.data,graphs.layout, config);  
+              </script>
+            </div>
           </div>  
         </div>
       </div>
@@ -26,11 +32,7 @@
             <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Liste personnes n'ayant pas payé:</h3>
           </div>
           <div class="card-body">
-            <ul>
-              {% for element in list_non_payment %}
-              <li>{{element}}</li>
-              {% endfor %}
-            </ul>
+            {{ non_payment_df |safe }}
           </div>  
         </div>
       </div>
@@ -43,11 +45,7 @@
             <h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary"></i>Liste personnes ayant payé:</h3>
           </div>
           <div class="card-body">
-          <ul>
-              {% for element in list_payment %}
-              <li>{{element}}</li>
-              {% endfor %}
-            </ul>
+          {{ payment_df |safe }}
         </div>
       </div>
     </div>

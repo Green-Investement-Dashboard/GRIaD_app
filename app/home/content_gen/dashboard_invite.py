@@ -69,8 +69,17 @@ class DataPreparation:
 		self.paid_df = self.guests.copy()
 		self.paid_df['Paid'] = self.paid_df.apply(lambda x: x['Montant attendu']==x['Montant regle'],axis=1)
 		self.paid_df['Str builder'] = self.paid_df.apply(lambda x: f"{x['Prénom']} {x['Nom']}: {x['Montant regle']}€/{x['Montant attendu']}€ ",axis=1)
+		
 		self.list_missing_payment = list(self.paid_df.loc[~self.paid_df['Paid'], 'Str builder'])
 		self.list_payment = list(self.paid_df.loc[self.paid_df['Paid'], 'Str builder'])
+
+		self.df_missing_payment = self.paid_df.loc[~self.paid_df['Paid'],['Prénom', 'Nom', 'Montant regle', 'Montant attendu']].to_html(classes=['data', 'table'], index=False)
+		self.df_payment = self.paid_df.loc[self.paid_df['Paid'],['Prénom', 'Nom', 'Montant regle', 'Montant attendu']].to_html(classes=['data', 'table'], index=False)
+
+		print(self.paid_df.loc[~self.paid_df['Paid']])
+		print(self.paid_df.loc[self.paid_df['Paid']])
+
+		self.pct_paid = round(self.paid_df.loc[self.paid_df['Paid']].shape[0]/self.paid_df.shape[0]*100,2)
 		
 
 	def cross_check_invites (self):
